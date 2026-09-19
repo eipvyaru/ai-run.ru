@@ -31,9 +31,9 @@ npm run verify:release
 ## Документы
 
 - [Техническое задание](TECHNICAL_SPECIFICATION.md)
-- [План разработки](DEVELOPMENT_PLAN.md)
-- [Первичное развёртывание](DEPLOYMENT_ROOT.md)
-- [Обновление production](DEPLOYMENT_UPDATE.md)
-- [Стандарт проекта](AI_RUN_PROJECT_STANDARD.md)
+- [План разработки](docs/DEVELOPMENT_PLAN.md)
+- [Первичное развёртывание](docs/DEPLOYMENT_ROOT.md)
+- [Обновление production](docs/DEPLOYMENT_UPDATE.md)
+- [Стандарт проекта](docs/AI_RUN_PROJECT_STANDARD.md)
 
 Application-level backup не реализован. Обязателен внешний backup VPS и checkpoint перед опасными миграциями.

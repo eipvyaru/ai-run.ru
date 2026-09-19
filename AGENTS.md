@@ -22,7 +22,7 @@ Next.js runs on `127.0.0.1:8787` behind Nginx. Production uses systemd and Node.
 
 ## Project documentation
 
-Read `AI_RUN_PROJECT_STANDARD.md`, `TECHNICAL_SPECIFICATION.md` and `DEVELOPMENT_PLAN.md` before changes. Update documentation with behavior changes.
+Read `docs/AI_RUN_PROJECT_STANDARD.md`, `TECHNICAL_SPECIFICATION.md` and `docs/DEVELOPMENT_PLAN.md` before changes. Update documentation with behavior changes.
 
 ## Environment synchronization
 
