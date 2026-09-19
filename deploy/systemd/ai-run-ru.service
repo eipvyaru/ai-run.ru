@@ -1,0 +1,22 @@
+[Unit]
+Description=AI-Run website
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/var/www/ai-run.ru
+EnvironmentFile=/var/www/ai-run.ru/.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/ai-run.ru /var/cache/ai-run.ru
+
+[Install]
+WantedBy=multi-user.target

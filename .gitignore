@@ -1,0 +1,15 @@
+node_modules/
+.npm-cache/
+.next/
+out/
+.env
+data/*
+!data/.gitkeep
+coverage/
+playwright-report/
+test-results/
+.sites-runtime/
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

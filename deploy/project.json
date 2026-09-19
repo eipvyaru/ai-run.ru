@@ -1,0 +1,13 @@
+{
+  "slug": "ai-run.ru",
+  "serviceName": "ai-run-ru",
+  "port": 8787,
+  "siteDomain": "ai-run.ru",
+  "host": "ai-run.ru",
+  "playwrightPort": 8786,
+  "githubOwner": "eipvyaru",
+  "githubRepository": "eipvyaru/ai-run.ru",
+  "vpsHost": "170.168.112.47",
+  "vpsSshPort": 22,
+  "nodeVersion": "v24.21.0"
+}

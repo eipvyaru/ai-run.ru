@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+npm run typecheck
+npm run lint
+if git diff --cached --name-only | grep -E '(^|/)(\.env$|.*\.sqlite$|data/)' >/dev/null; then
+  echo "Sensitive file is staged" >&2
+  exit 1
+fi

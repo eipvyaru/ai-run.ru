@@ -1,0 +1,2 @@
+import { accessSync,constants } from "node:fs"; import { NextResponse } from "next/server"; import { db } from "@/server/db/database"; import { env } from "@/server/config/env"; export const runtime="nodejs";
+export function GET(){try{db().prepare("SELECT 1").get();accessSync(env().SYSTEM_PROMPT_PATH,constants.R_OK);return NextResponse.json({status:"ready"});}catch{return NextResponse.json({status:"not_ready"},{status:503});}}

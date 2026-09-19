@@ -1,0 +1,18 @@
+import { db } from "@/server/db/database";
+
+const dayNames:Record<string,number>={"воскресенье":0,"понедельник":1,"вторник":2,"среду":3,"среда":3,"четверг":4,"пятницу":5,"пятница":5,"субботу":6,"суббота":6};
+function moscowParts(date:Date){ const parts=new Intl.DateTimeFormat("ru-RU",{timeZone:"Europe/Moscow",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23",weekday:"long"}).formatToParts(date); return Object.fromEntries(parts.map(p=>[p.type,p.value])); }
+function fromMoscow(year:number,month:number,day:number,hour:number,minute:number){ return new Date(Date.UTC(year,month-1,day,hour-3,minute)); }
+export function parseDesiredTime(text:string,now=new Date()){
+  const lower=text.toLowerCase(); const explicit=lower.match(/(\d{1,2})[.\/-](\d{1,2})(?:[.\/-](\d{2,4}))?/); const time=(explicit?lower.slice((explicit.index??0)+explicit[0].length):lower).match(/(?:в|после)?\s*(\d{1,2})(?::(\d{2}))?/); if(!time)return;
+  const hour=Number(time[1]),minute=Number(time[2]??0); if(hour>23||minute>59)return;
+  const current=moscowParts(now); let year=Number(current.year),month=Number(current.month),day=Number(current.day);
+  if(explicit){day=Number(explicit[1]);month=Number(explicit[2]);if(explicit[3])year=Number(explicit[3].length===2?`20${explicit[3]}`:explicit[3]);}
+  else if(lower.includes("послезавтра")){ const d=new Date(now.getTime()+2*86400000),p=moscowParts(d);year=+p.year;month=+p.month;day=+p.day; }
+  else if(lower.includes("завтра")){ const d=new Date(now.getTime()+86400000),p=moscowParts(d);year=+p.year;month=+p.month;day=+p.day; }
+  else { const target=Object.entries(dayNames).find(([name])=>lower.includes(name)); if(target){ const currentWeekday=new Date(Date.UTC(year,month-1,day)).getUTCDay(); let delta=(target[1]-currentWeekday+7)%7;if(delta===0||lower.includes("следующ"))delta+=7; const d=new Date(Date.UTC(year,month-1,day+delta));year=d.getUTCFullYear();month=d.getUTCMonth()+1;day=d.getUTCDate(); } else return; }
+  return fromMoscow(year,month,day,hour,minute);
+}
+export function scheduleSettings(){ const settings=Object.fromEntries((db().prepare("SELECT key,value FROM settings").all() as {key:string,value:string}[]).map(r=>[r.key,r.value])); const windows=db().prepare("SELECT * FROM schedule_windows").all() as {weekday:number,enabled:number,start_time:string,end_time:string}[]; return {duration:+settings.meeting_duration_minutes,notice:+settings.minimum_notice_hours,horizon:+settings.booking_horizon_days,windows}; }
+export function validateSlot(start:Date,now=new Date()){ const cfg=scheduleSettings(),end=new Date(start.getTime()+cfg.duration*60000),diff=start.getTime()-now.getTime(); if(diff<cfg.notice*3600000)return{ok:false,reason:`Запись возможна минимум за ${cfg.notice} ч.`}; if(diff>cfg.horizon*86400000)return{ok:false,reason:`Запись открыта на ${cfg.horizon} дней вперёд.`}; const p=moscowParts(start),weekday=new Date(Date.UTC(+p.year,+p.month-1,+p.day)).getUTCDay(),window=cfg.windows.find(w=>w.weekday===weekday); if(!window?.enabled)return{ok:false,reason:"В этот день запись закрыта."}; const minutes=+p.hour*60 + +p.minute,[sh,sm]=window.start_time.split(":").map(Number),[eh,em]=window.end_time.split(":").map(Number); if(minutes<sh*60+sm||minutes+cfg.duration>eh*60+em)return{ok:false,reason:`Доступное время в этот день: ${window.start_time}–${window.end_time} МСК.`}; return{ok:true,start,end}; }
+export function formatMoscow(date:Date){return new Intl.DateTimeFormat("ru-RU",{timeZone:"Europe/Moscow",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"}).format(date).replace(",","");}
