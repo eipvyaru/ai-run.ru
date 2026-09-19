@@ -45,7 +45,7 @@ C:\_Codex\AI_RUN_PROJECTS.json
 При создании нового проекта она копируется без изменения в корень проекта:
 
 ```text
-C:\_Codex\<slug>\AI_RUN_PROJECT_STANDARD.md
+C:\_Codex\<slug>\docs\AI_RUN_PROJECT_STANDARD.md
 ```
 
 Копия стандарта в проекте фиксирует правила, по которым проект был создан.
@@ -197,8 +197,8 @@ command -v npm
 .node-version
 AGENTS.md
 README.md
-DEPLOYMENT_ROOT.md
-DEPLOYMENT_UPDATE.md
+docs/DEPLOYMENT_ROOT.md
+docs/DEPLOYMENT_UPDATE.md
 ```
 
 5. использовать ту же версию локально.
@@ -427,13 +427,15 @@ ORM добавляется только если ТЗ или архитекту�
 ```text
 C:\_Codex\<slug>\
 │
-├── AI_RUN_PROJECT_STANDARD.md
 ├── AGENTS.md
 ├── TECHNICAL_SPECIFICATION.md
-├── DEVELOPMENT_PLAN.md
-├── DEPLOYMENT_ROOT.md
-├── DEPLOYMENT_UPDATE.md
 ├── README.md
+│
+├── docs\
+│   ├── AI_RUN_PROJECT_STANDARD.md
+│   ├── DEVELOPMENT_PLAN.md
+│   ├── DEPLOYMENT_ROOT.md
+│   └── DEPLOYMENT_UPDATE.md
 │
 ├── .env
 ├── .env.example
@@ -471,7 +473,6 @@ C:\_Codex\<slug>\
 │   ├── nginx\
 │   └── systemd\
 │
-├── docs\
 ├── tests\
 └── data\
 ```
@@ -512,9 +513,21 @@ C:\_Codex\<slug>\data\prompt-history\
 
 До начала предметной разработки Codex обязан создать документы в указанном порядке.
 
+Четыре постоянных проектных документа ведутся только в подкаталоге:
+
+```text
+docs/AI_RUN_PROJECT_STANDARD.md
+docs/DEVELOPMENT_PLAN.md
+docs/DEPLOYMENT_ROOT.md
+docs/DEPLOYMENT_UPDATE.md
+```
+
+Их дубликаты в корне проекта не создаются. `AGENTS.md`, `TECHNICAL_SPECIFICATION.md` и `README.md` остаются в корне проекта.
+
+
 ---
 
-# 10. `AI_RUN_PROJECT_STANDARD.md`
+# 10. `docs/AI_RUN_PROJECT_STANDARD.md`
 
 Создаётся первым техническим артефактом путём копирования:
 
@@ -525,7 +538,7 @@ C:\_Codex\AI_RUN_PROJECT_STANDARD.md
 в:
 
 ```text
-C:\_Codex\<slug>\AI_RUN_PROJECT_STANDARD.md
+C:\_Codex\<slug>\docs\AI_RUN_PROJECT_STANDARD.md
 ```
 
 Файл не пересказывается и не сокращается.
@@ -642,7 +655,7 @@ Codex не должен придумывать требования.
 
 ---
 
-# 13. `DEVELOPMENT_PLAN.md`
+# 13. `docs/DEVELOPMENT_PLAN.md`
 
 Создаётся только после согласования `TECHNICAL_SPECIFICATION.md`.
 
@@ -679,7 +692,7 @@ Git commit
 
 ---
 
-# 14. `DEPLOYMENT_ROOT.md`
+# 14. `docs/DEPLOYMENT_ROOT.md`
 
 Это инструкция только для первого развёртывания проекта.
 
@@ -716,7 +729,7 @@ Git commit
 
 ---
 
-# 15. `DEPLOYMENT_UPDATE.md`
+# 15. `docs/DEPLOYMENT_UPDATE.md`
 
 Это отдельная короткая инструкция только для последующих обновлений уже работающего проекта.
 
@@ -786,10 +799,10 @@ PLAYWRIGHT_PORT
 Local start
 Ссылки на:
 - TECHNICAL_SPECIFICATION.md
-- DEVELOPMENT_PLAN.md
-- DEPLOYMENT_ROOT.md
-- DEPLOYMENT_UPDATE.md
-- AI_RUN_PROJECT_STANDARD.md
+- docs/DEVELOPMENT_PLAN.md
+- docs/DEPLOYMENT_ROOT.md
+- docs/DEPLOYMENT_UPDATE.md
+- docs/AI_RUN_PROJECT_STANDARD.md
 ```
 
 ---
@@ -1177,7 +1190,7 @@ Application-level backup внутри конкретного проекта со
 Если application-level backup не реализован:
 
 - это явно фиксируется в ТЗ;
-- фиксируется в `DEPLOYMENT_ROOT.md`;
+- фиксируется в `docs/DEPLOYMENT_ROOT.md`;
 - фиксируется в `README.md`;
 - deployment перед опасными миграциями должен требовать проверки актуальности внешнего VPS backup.
 
@@ -1425,10 +1438,10 @@ Node.js на VPS изменяется только как отдельная и�
 
 Codex обязан:
 
-1. читать `AI_RUN_PROJECT_STANDARD.md`;
+1. читать `docs/AI_RUN_PROJECT_STANDARD.md`;
 2. читать `AGENTS.md`;
 3. читать `TECHNICAL_SPECIFICATION.md`;
-4. читать `DEVELOPMENT_PLAN.md`;
+4. читать `docs/DEVELOPMENT_PLAN.md`;
 5. работать строго по текущему этапу;
 6. обновлять документацию вместе с кодом;
 7. автоматически создавать локальный Git commit после завершённого изменения;
@@ -1448,9 +1461,9 @@ Codex обязан:
 ```text
 1. Явное последнее решение пользователя
 2. TECHNICAL_SPECIFICATION.md
-3. AI_RUN_PROJECT_STANDARD.md проекта
+3. docs/AI_RUN_PROJECT_STANDARD.md проекта
 4. AGENTS.md
-5. DEVELOPMENT_PLAN.md
+5. docs/DEVELOPMENT_PLAN.md
 6. README.md
 7. deployment-инструкции
 8. комментарии в коде
@@ -1503,8 +1516,8 @@ Codex обязан:
 - [ ] `AGENTS.md` создан;
 - [ ] ТЗ создано и согласовано;
 - [ ] development plan соответствует ТЗ;
-- [ ] `DEPLOYMENT_ROOT.md` создан;
-- [ ] `DEPLOYMENT_UPDATE.md` создан;
+- [ ] `docs/DEPLOYMENT_ROOT.md` создан;
+- [ ] `docs/DEPLOYMENT_UPDATE.md` создан;
 - [ ] README создан;
 - [ ] `deploy/project.json` заполнен;
 - [ ] `.env.example` не содержит secrets;
@@ -1535,19 +1548,19 @@ Codex обязан:
 5. Codex проверяет conflicts
 6. Codex обновляет AI_RUN_PROJECTS.json
 7. Codex создаёт C:\_Codex\<slug>
-8. Копирует AI_RUN_PROJECT_STANDARD.md
+8. Создаёт каталог docs и копирует docs/AI_RUN_PROJECT_STANDARD.md
 9. Создаёт AGENTS.md
 10. Формирует TECHNICAL_SPECIFICATION.md
 11. Согласовывает критичные требования
-12. Создаёт DEVELOPMENT_PLAN.md
-13. Создаёт DEPLOYMENT_ROOT.md
-14. Создаёт DEPLOYMENT_UPDATE.md
+12. Создаёт docs/DEVELOPMENT_PLAN.md
+13. Создаёт docs/DEPLOYMENT_ROOT.md
+14. Создаёт docs/DEPLOYMENT_UPDATE.md
 15. Создаёт README.md
 16. Создаёт deploy/project.json
 17. Создаёт application scaffold
 18. Создаёт env contract
 19. Устанавливает Git hooks
-20. Реализует проект по DEVELOPMENT_PLAN.md
+20. Реализует проект по docs/DEVELOPMENT_PLAN.md
 21. После каждого этапа проверки + local commit
 22. verify:release
 23. user-approved push
@@ -1568,5 +1581,3 @@ Codex обязан:
 Обязательная инфраструктура стандартизируется.
 
 Предметный функционал определяется ТЗ.
-
-
