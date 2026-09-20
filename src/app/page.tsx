@@ -1,11 +1,14 @@
 import Image from "next/image";
 import { Chat } from "@/components/chat";
+import { ChatCta } from "@/components/chat-cta";
 
 const problems = [
   "Клиент написал, но ответ получил слишком поздно",
   "Менеджер забыл вернуться к заявке",
   "Информация потерялась между сотрудниками",
-  "Руководитель снова контролирует рутину вручную"
+  "Задача зависит от конкретного сотрудника",
+  "Руководитель снова контролирует рутину вручную",
+  "Клиент повторно сообщает одни и те же данные"
 ];
 
 const capabilities = [
@@ -22,19 +25,24 @@ export default function Home() {
     <header className="header">
       <a href="#top" aria-label="AI-Run — на главную"><Image src="/logo.svg" width={192} height={60} alt="AI-Run" priority /></a>
       <nav aria-label="Основная навигация">
-        <a href="#tasks">Задачи</a><a href="#examples">Примеры</a><a href="#process">Как работаем</a>
+        <a href="#tasks">Какие задачи решаем</a><a href="#capabilities">Как это работает</a><a href="#examples">Примеры</a><a href="#process">Как работаем</a>
       </nav>
-      <a className="button button-small" href="#secretary">Разобрать процесс</a>
+      <ChatCta className="button button-small">Разобрать мой процесс</ChatCta>
     </header>
 
     <section className="hero" id="top">
       <div className="hero-copy">
         <p className="eyebrow"><span /> AI-агенты для реальных бизнес-процессов</p>
         <h1>В вашем бизнесе есть работа, которую <em>никто не успевает</em> делать?</h1>
-        <p className="lead">Мы находим функции, которые проваливаются между сотрудниками, и создаём AI-агентов, которые берут эту работу на себя.</p>
-        <div className="hero-actions"><a className="button" href="#secretary">Разобрать мой процесс <span>↗</span></a><p>Без длинной формы<br/>и технического задания</p></div>
+        <ul className="hero-problems" aria-label="Типичные проблемы">
+          <li>Клиенту вовремя не ответили</li>
+          <li>Заявку не обработали</li>
+          <li>Руководителю пришлось вмешаться самому</li>
+        </ul>
+        <p className="lead">Мы разрабатываем AI-агентов, которые берут на себя такие незакрытые функции бизнес-процесса.</p>
+        <div className="hero-actions"><ChatCta>Разобрать мой процесс <span>↗</span></ChatCta><p>Не нужно готовить техническое задание. Сначала разберём, где возникает проблема и может ли её решить AI-агент.</p></div>
       </div>
-      <div id="secretary" className="chat-wrap"><Chat /></div>
+      <div id="secretary" className="chat-wrap" tabIndex={-1}><Chat /></div>
     </section>
 
     <section className="losses" id="tasks">
@@ -43,7 +51,7 @@ export default function Home() {
       <p className="statement">Если функция регулярно проваливается между сотрудниками, <strong>часть процесса можно передать AI-агенту.</strong></p>
     </section>
 
-    <section className="capabilities">
+    <section className="capabilities" id="capabilities">
       <p className="section-index">02 / ВОЗМОЖНОСТИ</p><div className="section-heading"><h2>Что может делать<br/>AI-агент</h2><p>Не заменять людей любой ценой, а закрывать конкретную функцию — точно, стабильно и под контролем.</p></div>
       <div className="cap-grid">{capabilities.map(([n,t,d]) => <article key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></article>)}</div>
     </section>
@@ -57,8 +65,8 @@ export default function Home() {
     <section className="examples" id="examples">
       <p className="section-index">04 / РАБОТАЮЩИЕ ПРИМЕРЫ</p><h2>Не презентации.<br/>Работающие сервисы.</h2>
       <div className="example-grid">
-        <a href="https://tp.ai-run.ru" target="_blank" rel="noreferrer"><span>TRADE-PART</span><h3>Поиск деталей<br/>для спецтехники</h3><p>AI-агент помогает найти нужную запчасть по каталогу и подготавливает обращение.</p><b>Открыть сервис ↗</b></a>
-        <a href="https://cover-letter.ai-run.ru" target="_blank" rel="noreferrer"><span>COVER LETTER</span><h3>Сопроводительные<br/>письма под вакансию</h3><p>AI анализирует требования и создаёт точное письмо на основе опыта кандидата.</p><b>Открыть сервис ↗</b></a>
+        <a href="https://tp.ai-run.ru" target="_blank" rel="noreferrer"><span className="project-status">Работает</span><h3>Поиск деталей<br/>для спецтехники</h3><p>AI-агент помогает найти нужную запчасть по каталогу и подготавливает обращение.</p><b>Посмотреть ↗</b></a>
+        <a href="https://cover-letter.ai-run.ru" target="_blank" rel="noreferrer"><span className="project-status">Работает</span><h3>Сопроводительные<br/>письма под вакансию</h3><p>AI анализирует требования и создаёт точное письмо на основе опыта кандидата.</p><b>Посмотреть ↗</b></a>
       </div>
     </section>
 
@@ -69,7 +77,7 @@ export default function Home() {
       ].map(([t,d],i)=><li key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></li>)}</ol>
     </section>
 
-    <section className="final-cta"><p className="eyebrow"><span /> Начнём с конкретной проблемы</p><h2>Какой процесс сейчас<br/>отнимает ваше время?</h2><a className="button light" href="#secretary">Разобрать мой процесс <span>↗</span></a></section>
+    <section className="final-cta"><p className="eyebrow"><span /> Начнём с конкретной проблемы</p><h2>Не уверены, какую задачу<br/>можно передать AI?</h2><p>Расскажите, где сейчас возникают задержки, потерянные задачи или постоянный ручной контроль. Начать можно без технического задания.</p><ChatCta className="button light">Разобрать мой процесс <span>↗</span></ChatCta></section>
     <footer><Image src="/logo.svg" width={160} height={50} alt="AI-Run"/><p>AI-агенты для бизнеса</p><a href="/privacy-policy">Политика обработки персональных данных</a><span>© 2026 AI-Run</span></footer>
   </main>;
 }

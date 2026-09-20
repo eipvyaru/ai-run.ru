@@ -35,14 +35,14 @@ export function Chat() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? "Не удалось получить ответ");
       setSessionId(data.sessionId); setMessages((current) => [...current, { role: "assistant", text: data.message }]);
-    } catch (error) { setMessages((current) => [...current, { role: "error", text: error instanceof Error ? error.message : "Временная ошибка. Повторите сообщение." }]); }
+    } catch (error) { setInput(text); setMessages((current) => [...current, { role: "error", text: error instanceof Error ? error.message : "Временная ошибка. Повторите сообщение." }]); }
     finally { setBusy(false); }
   }
 
   return <section className="chat-card" aria-label="AI-секретарь">
     <div className="chat-head"><div className="chat-person"><span className="chat-avatar">AI</span><div><strong>AI-секретарь</strong><small>Поможет назначить разговор</small></div></div><span className="online" aria-label="Онлайн" /></div>
     <div className="chat-messages" aria-live="polite">{messages.map((message, index) => <div className={`bubble ${message.role}`} key={index}>{message.text}</div>)}{busy && <div className="bubble assistant typing">Печатает…</div>}<div ref={endRef}/></div>
-    {!consented && <label className="consent"><input type="checkbox" checked={false} disabled={busy} onChange={(event) => acceptConsent(event.target.checked)}/><span>Я даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy" target="_blank">Политикой обработки персональных данных</a>. Я обязуюсь здесь не указывать никакие свои персональные данные кроме имени и телефона.</span></label>}
-    <form className="chat-form" onSubmit={send}><input aria-label="Сообщение" value={input} onChange={(event)=>setInput(event.target.value)} placeholder={consented ? "Напишите сообщение…" : "Сначала подтвердите согласие"} disabled={!consented || busy} maxLength={2000}/><button type="submit" disabled={!consented || busy || !input.trim()} aria-label="Отправить">↑</button></form>
+    <form className="chat-form" onSubmit={send}><textarea aria-label="Сообщение" rows={2} value={input} onChange={(event)=>setInput(event.target.value)} placeholder={consented ? "Напишите сообщение…" : "Сначала подтвердите согласие"} disabled={!consented || busy} maxLength={2000}/><button type="submit" disabled={!consented || busy || !input.trim()} aria-label="Отправить">↑</button></form>
+    {!consented && <label className="consent"><input type="checkbox" checked={false} disabled={busy} onChange={(event) => acceptConsent(event.target.checked)}/><span>Я даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy" target="_blank" rel="noreferrer">Политикой обработки персональных данных</a>. Я обязуюсь здесь не указывать никакие свои персональные данные кроме имени и телефона.</span></label>}
   </section>;
 }
