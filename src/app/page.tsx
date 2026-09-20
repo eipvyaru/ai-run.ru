@@ -27,7 +27,7 @@ export default function Home() {
       <nav aria-label="Основная навигация">
         <a href="#tasks">Какие задачи решаем</a><a href="#capabilities">Как это работает</a><a href="#examples">Примеры</a><a href="#process">Как работаем</a>
       </nav>
-      <ChatCta className="button button-small">Разобрать мой процесс</ChatCta>
+      <ChatCta className="button button-small">Назначить созвон</ChatCta>
     </header>
 
     <section className="hero" id="top">
@@ -40,7 +40,7 @@ export default function Home() {
           <li>Руководителю пришлось вмешаться самому</li>
         </ul>
         <p className="lead">Мы разрабатываем AI-агентов, которые берут на себя такие незакрытые функции бизнес-процесса.</p>
-        <div className="hero-actions"><ChatCta>Разобрать мой процесс <span>↗</span></ChatCta><p>Не нужно готовить техническое задание. Сначала разберём, где возникает проблема и может ли её решить AI-агент.</p></div>
+        <div className="hero-actions"><ChatCta>Обсудить мою задачу <span>↗</span></ChatCta><p>Не нужно готовить техническое задание. Сначала разберём, где возникает проблема и может ли её решить AI-агент.</p></div>
       </div>
       <div id="secretary" className="chat-wrap" tabIndex={-1}><Chat /></div>
     </section>
@@ -77,7 +77,7 @@ export default function Home() {
       ].map(([t,d],i)=><li key={t}><span>0{i+1}</span><h3>{t}</h3><p>{d}</p></li>)}</ol>
     </section>
 
-    <section className="final-cta"><p className="eyebrow"><span /> Начнём с конкретной проблемы</p><h2>Не уверены, какую задачу<br/>можно передать AI?</h2><p>Расскажите, где сейчас возникают задержки, потерянные задачи или постоянный ручной контроль. Начать можно без технического задания.</p><ChatCta className="button light">Разобрать мой процесс <span>↗</span></ChatCta></section>
+    <section className="final-cta"><p className="eyebrow"><span /> Начнём с конкретной проблемы</p><h2>Не уверены, какую задачу<br/>можно передать AI?</h2><p>Расскажите, где сейчас возникают задержки, потерянные задачи или постоянный ручной контроль. Начать можно без технического задания.</p><ChatCta className="button light">Найти, что можно передать AI <span>↗</span></ChatCta></section>
     <footer><Image src="/logo.svg" width={160} height={50} alt="AI-Run"/><p>AI-агенты для бизнеса</p><a href="/privacy-policy">Политика обработки персональных данных</a><span>© 2026 AI-Run</span></footer>
   </main>;
 }
