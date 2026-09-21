@@ -165,11 +165,32 @@ footer {
   padding-right: max(5vw, calc((100vw - 1280px) / 2 + 28px));
   background: #111318;
   color: #aeb5c0;
+  grid-template-columns: 1fr 1fr 1.5fr auto auto;
 }
 footer a { color: #ddd5ff; text-underline-offset: 3px; }
+footer .footer-admin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid #8e95a3;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s, border-color .2s;
+}
+footer .footer-admin:hover,
+footer .footer-admin:focus-visible {
+  background: #303047;
+  border-color: #a995ed;
+}
 
 @media (max-width: 1023px) {
   .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  footer { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 767px) {
@@ -177,6 +198,10 @@ footer a { color: #ddd5ff; text-underline-offset: 3px; }
   .chat-card { box-shadow: 0 16px 38px rgb(43 51 69 / 13%); }
   .consent { padding-top: 14px; }
   footer { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (max-width: 560px) {
+  footer { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
