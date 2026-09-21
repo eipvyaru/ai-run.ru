@@ -1,0 +1,209 @@
+.admin-dashboard {
+  max-width: 1180px;
+  padding: 18px 24px 30px;
+}
+
+.admin-dashboard > header {
+  padding-bottom: 12px;
+}
+
+.admin-dashboard > header img {
+  width: 120px;
+}
+
+.admin-dashboard > header div {
+  align-items: center;
+}
+
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(260px, .8fr);
+  gap: 16px;
+  margin-top: 18px;
+  align-items: start;
+}
+
+.admin-dashboard .admin-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.admin-dashboard .admin-card .section-index {
+  margin: 0 0 8px;
+}
+
+.admin-dashboard .admin-card h1,
+.admin-dashboard .admin-card h2 {
+  margin: 0 0 16px;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -.03em;
+}
+
+.admin-dashboard .admin-fields {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.admin-dashboard .admin-fields label {
+  gap: 5px;
+  margin: 0;
+  font-size: .78rem;
+}
+
+.admin-dashboard .admin-fields input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: .9rem;
+}
+
+.admin-dashboard .schedule-list {
+  margin: 14px 0;
+}
+
+.admin-dashboard .schedule-list > div {
+  grid-template-columns: 86px minmax(0, 1fr) 12px minmax(0, 1fr);
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.admin-dashboard .schedule-list label {
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.admin-dashboard .schedule-list label input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.admin-dashboard .schedule-list input[type="time"] {
+  min-width: 0;
+  width: 100%;
+  padding: 7px;
+  font-size: .85rem;
+}
+
+.admin-dashboard .button {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: .8rem;
+}
+
+.admin-side {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-dashboard .admin-consent-card h2 {
+  margin-bottom: 0;
+}
+
+.admin-journal-link {
+  color: #4435a2;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.admin-journal-link:hover,
+.admin-journal-link:focus-visible {
+  color: #271b78;
+}
+
+.admin-card-note {
+  margin: 8px 0 0;
+  color: #66707d;
+  font-size: .8rem;
+}
+
+.admin-dashboard .admin-switch {
+  align-items: center;
+  gap: 9px;
+  font-size: .88rem;
+}
+
+.admin-dashboard .admin-switch input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.admin-dashboard .admin-actions {
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.admin-dashboard .admin-error {
+  margin: 12px 0 0;
+}
+
+.admin-journal {
+  max-width: 1180px;
+  padding: 24px;
+}
+
+.admin-journal > header {
+  padding-bottom: 16px;
+}
+
+.admin-journal > header img {
+  width: 120px;
+}
+
+.admin-journal > section {
+  padding: 28px 0 0;
+  border: 0;
+}
+
+.admin-journal h1 {
+  margin: 8px 0 18px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.admin-journal .admin-table td:nth-child(3) {
+  font-family: monospace;
+  font-size: .8rem;
+}
+
+@media (max-width: 900px) {
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .admin-dashboard,
+  .admin-journal {
+    padding: 16px;
+  }
+
+  .admin-dashboard .admin-card {
+    padding: 16px;
+  }
+
+  .admin-side {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard .admin-fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-dashboard .admin-fields label {
+    font-size: .7rem;
+  }
+
+  .admin-dashboard .schedule-list > div {
+    grid-template-columns: 58px minmax(0, 1fr) 10px minmax(0, 1fr);
+    gap: 5px;
+  }
+}
