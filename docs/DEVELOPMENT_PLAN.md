@@ -284,7 +284,7 @@ Email formatter, SMTP adapter, outbox repository, worker entry point, systemd wo
 - Подключены предоставленные `public/logo.svg` и `public/favicon.svg`, настроены favicon metadata и корректные размеры логотипа.
 - Реализованы состояния чата, consent checkbox, многострочное поле, сохранение текста при сетевой ошибке, time options, retry и подтверждения.
 - Создана публичная `/privacy-policy` с утверждённым текстом.
-- В Footer размещена ссылка-кнопка «Админ-панель» на защищённую страницу `/admin`.
+- В Footer размещена текстовая ссылка «Настройки» на защищённую страницу `/admin`.
 - Добавлены metadata, canonical, Open Graph, robots и sitemap.
 
 **Изменяемые компоненты**

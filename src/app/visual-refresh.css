@@ -168,25 +168,8 @@ footer {
   grid-template-columns: 1fr 1fr 1.5fr auto auto;
 }
 footer a { color: #ddd5ff; text-underline-offset: 3px; }
-footer .footer-admin {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  padding: 0 16px;
-  border: 1px solid #8e95a3;
-  border-radius: 6px;
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background .2s, border-color .2s;
-}
-footer .footer-admin:hover,
-footer .footer-admin:focus-visible {
-  background: #303047;
-  border-color: #a995ed;
-}
+footer a:hover,
+footer a:focus-visible { color: #fff; }
 
 @media (max-width: 1023px) {
   .cap-grid { grid-template-columns: repeat(2, 1fr); }
