@@ -59,7 +59,8 @@ textarea:focus-visible {
 .bubble.error { background: #fff0f1; border-color: #efc8cc; color: #8d2731; }
 .typing { color: #626977; }
 
-.chat-form { background: #fff; border-top-color: #e2e5eb; }
+.chat-form { display: block; background: #fff; border-top-color: #e2e5eb; }
+.chat-compose { display: flex; gap: 9px; align-items: stretch; }
 .chat-form textarea {
   background: #fff;
   color: var(--ink);
@@ -76,6 +77,34 @@ textarea:focus-visible {
   box-shadow: 0 6px 16px rgb(87 80 210 / 20%);
 }
 .chat-form button:not(:disabled):hover { filter: brightness(1.06); }
+.chat-form .voice-button {
+  flex: 0 0 48px;
+  width: 48px;
+  padding: 0;
+  border: 1px solid #cfc5f3;
+  background: #f1edff;
+  color: #5d43c7;
+  box-shadow: none;
+}
+.chat-form .voice-button svg { width: 21px; height: 21px; fill: currentColor; }
+.chat-form .voice-button:not(:disabled):hover { background: #e7e0ff; filter: none; }
+.chat-form .voice-button.listening {
+  border-color: #d85261;
+  background: #fff0f2;
+  color: #a62435;
+  animation: voice-pulse 1.2s ease-in-out infinite;
+}
+.chat-form .send-button { flex: 0 0 48px; width: 48px; }
+.voice-status {
+  margin: 8px 2px 0;
+  color: #5f6673;
+  font-size: .72rem;
+  line-height: 1.35;
+}
+.voice-status.error { color: #9d2834; }
+@keyframes voice-pulse {
+  50% { box-shadow: 0 0 0 5px rgb(216 82 97 / 14%); }
+}
 
 .consent {
   margin-top: 0;
@@ -188,6 +217,7 @@ footer a:focus-visible { color: #fff; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .voice-button.listening { animation: none; }
   .header nav a,
   .cap-grid article { transition: none; }
 }
