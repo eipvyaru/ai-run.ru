@@ -80,7 +80,7 @@ export function AdminPanel() {
   if (!authenticated) return (
     <main className="admin-login">
       <form onSubmit={submit}>
-        <Image src="/logo.svg" width={150} height={47} alt="AI-Run" />
+        <Image src="/logo.svg" width={150} height={45} alt="AI-Run" />
         <p className="section-index">ЗАКРЫТЫЙ РАЗДЕЛ</p>
         <h1>Вход администратора</h1>
         <label>Логин<input type="email" value={login} onChange={(event) => setLogin(event.target.value)} /></label>
@@ -94,7 +94,7 @@ export function AdminPanel() {
   return (
     <main className="admin-shell admin-dashboard">
       <header>
-        <Image src="/logo.svg" width={145} height={45} alt="AI-Run" />
+        <Image src="/logo.svg" width={150} height={45} alt="AI-Run" />
         <div><strong>Администрирование</strong><Link href="/">На сайт ↗</Link></div>
       </header>
       {error && <p className="admin-error" role="alert">{error}</p>}

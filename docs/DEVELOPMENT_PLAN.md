@@ -478,7 +478,7 @@ Production deployment сам по себе не требует изменени�
 - SMTP port и режим TLS (`465/TLS` либо `587/STARTTLS`) — этап 8.
 - Идентификатор/URL конкретной CalDAV collection после discovery — этап 6.
 - Фактические значения `YANDEX_CALDAV_PASSWORD`, `SMTP_PASSWORD` и `ADMIN_PASSWORD` — только в локальном `.env`, никогда не в Git или чате.
-- Брендовые ассеты уже получены: `public/logo.svg` и `public/favicon.svg`; на этапе 9 требуется только их подключение и визуальная проверка.
+- Брендовые ассеты варианта 1 установлены: `public/favicon.svg`, `public/favicon.ico` и собранный из нового значка и прежней надписи `public/logo.svg`. При обновлении значка логотип пересобирается через `node scripts/build-brand-logo.mjs`.
 
 ## Юридический пакет A–F от 18.10.2026
 

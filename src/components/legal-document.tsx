@@ -17,7 +17,7 @@ export function SafeLegalMarkdown({ markdown }: { markdown: string }) {
 
 export function LegalDocument({ document }: { document: Document }) {
   return <main className="policy-page legal-page">
-    <header><Link href="/"><Image src="/logo.svg" width={150} height={47} alt="AI-Run" /></Link><Link href="/">← На главную</Link></header>
+    <header><Link href="/"><Image src="/logo.svg" width={150} height={45} alt="AI-Run" /></Link><Link href="/">← На главную</Link></header>
     <p className="section-index">ЮРИДИЧЕСКИЕ ДОКУМЕНТЫ · УТВЕРЖДЕНО ВЛАДЕЛЬЦЕМ</p>
     <p className="policy-note">Редакция {document.version} утверждена 18.10.2026. Дата применения в документе — 01.11.2026; до публикации и наступления этой даты документ не действует.</p>
     <article className="policy-text"><SafeLegalMarkdown markdown={document.markdown} /></article>

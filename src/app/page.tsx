@@ -24,7 +24,7 @@ const capabilities = [
 export default function Home() {
   return <main>
     <header className="header">
-      <a href="#top" aria-label="AI-Run — на главную"><Image src="/logo.svg" width={192} height={60} alt="AI-Run" priority /></a>
+      <a href="#top" aria-label="AI-Run — на главную"><Image src="/logo.svg" width={200} height={60} alt="AI-Run" priority /></a>
       <nav aria-label="Основная навигация">
         <a href="#tasks">Какие задачи решаем</a><a href="#capabilities">Как это работает</a><a href="#examples">Примеры</a><a href="#process">Как работаем</a>
       </nav>
@@ -79,6 +79,6 @@ export default function Home() {
     </section>
 
     <section className="final-cta"><p className="eyebrow"><span /> Начнём с конкретной проблемы</p><h2>Не уверены, какую задачу<br/>можно передать AI?</h2><p>Расскажите, где сейчас возникают задержки, потерянные задачи или постоянный ручной контроль. Начать можно без технического задания.</p><ChatCta className="button light">Найти, что можно передать AI <span>↗</span></ChatCta></section>
-    <footer><Image src="/logo.svg" width={160} height={50} alt="AI-Run"/><p>AI-агенты для бизнеса</p><Link href="/legal/privacy">Политика обработки персональных данных</Link><a href="/admin">Настройки</a><span>© 2026 AI-Run</span></footer>
+    <footer><Image src="/logo.svg" width={167} height={50} alt="AI-Run"/><p>AI-агенты для бизнеса</p><Link href="/legal/privacy">Политика обработки персональных данных</Link><a href="/admin">Настройки</a><span>© 2026 AI-Run</span></footer>
   </main>;
 }

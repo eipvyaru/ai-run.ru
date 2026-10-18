@@ -32,7 +32,7 @@ export default async function ConsentsPage() {
   return (
     <main className="admin-shell admin-journal">
       <header>
-        <Image src="/logo.svg" width={145} height={45} alt="AI-Run" />
+        <Image src="/logo.svg" width={150} height={45} alt="AI-Run" />
         <Link href="/admin">← К настройкам</Link>
       </header>
       <section>

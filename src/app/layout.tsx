@@ -7,7 +7,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ai-run.ru"),
   title: "AI-Run — AI-агенты для бизнеса",
   description: "Разрабатываем AI-агентов для незакрытых функций бизнес-процессов: заявки, продажи, внутренние знания и повторяющиеся операции.",
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=20261018", type: "image/x-icon", sizes: "any" },
+      { url: "/favicon.svg?v=20261018", type: "image/svg+xml", sizes: "any" }
+    ],
+    shortcut: "/favicon.ico?v=20261018"
+  },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
