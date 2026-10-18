@@ -166,6 +166,8 @@ LLM_TIMEOUT_MS=1800
 LLM_MAX_OUTPUT_TOKENS=8000
 ```
 
+Локальная конфигурация может использовать Yandex AI Studio (`https://ai.api.cloud.yandex.net/v1/responses`) с моделью `gpt://b1g275m0meuirodub8v4/deepseek-v4.1-flash/latest`. Для неё нужны `YANDEX_CLOUD_FOLDER`, `YANDEX_CLOUD_API_KEY`, `YANDEX_CLOUD_MODEL` и `YANDEX_CLOUD_TIMEOUT_MS` в `.env`. При наличии ключа Yandex этот маршрут имеет приоритет; при его отсутствии сохраняется прежний LLM-шлюз. Запрос использует `OpenAI-Project`, `temperature=0.3`, `max_output_tokens=1500` и `store=false`. Yandex AI Studio — удалённый облачный сервис, поэтому маскирование ПДн сохраняется. При сбое шлюза применяется детерминированный ответ приложения. Реальные тестовые вызовы требуют отдельного разрешения.
+
 Модель выбирается только из server-side allowlist. Перед каждым запросом исходные имя и телефон заменяются стабильными aliases текущей сессии. Повторно введённые значения также маскируются. Ответ LLM декодируется сервером перед показом пользователю. Таблица соответствий не передаётся модели.
 
 Промт хранится локально в `data/system_prompt.md`, а в production — `/var/lib/ai-run.ru/system_prompt.md`. Он не коммитится, не помещается в `.env`, код или `public` и обновляется отдельно с сохранением предыдущей версии.

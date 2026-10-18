@@ -10,6 +10,10 @@ const schema = z.object({
   ADMIN_LOGIN: z.string().email().default("eipv@ya.ru"), ADMIN_PASSWORD: z.string().default(""),
   LLM_API_ENDPOINT: z.string().url().default("https://api.kodikrouter.ru/v1"), LLM_API_KEY: z.string().default(""),
   LLM_DEFAULT_MODEL: z.string().default("openai/gpt-5.6-luna"), LLM_TIMEOUT_MS: z.coerce.number().int().positive().default(1800), LLM_MAX_OUTPUT_TOKENS: z.coerce.number().int().positive().default(8000),
+  YANDEX_CLOUD_FOLDER: z.string().default("b1g275m0meuirodub8v4"),
+  YANDEX_CLOUD_API_KEY: z.string().default(""),
+  YANDEX_CLOUD_MODEL: z.string().default("deepseek-v4.1-flash/latest"),
+  YANDEX_CLOUD_TIMEOUT_MS: z.coerce.number().int().positive().default(30000),
   YANDEX_CALDAV_URL: z.string().url().default("https://caldav.yandex.ru"), YANDEX_CALDAV_LOGIN: z.string().default("eipv@yandex.ru"), YANDEX_CALDAV_PASSWORD: z.string().default(""), YANDEX_CALENDAR_URL: z.string().default(""),
   SMTP_HOST: z.string().default("smtp.ht-systems.ru"), SMTP_PORT: z.coerce.number().int().default(465), SMTP_SECURE: z.string().default("true").transform(v=>v==="true"), SMTP_LOGIN: z.string().default("noreply@ai-run.ru"), SMTP_PASSWORD: z.string().default(""), SMTP_FROM: z.string().default("noreply@ai-run.ru"), SMTP_TO: z.string().default("igor@ai-run.ru"),
   TRUSTED_PROXY: z.string().default("false").transform(v=>v==="true")
