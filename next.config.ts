@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  outputFileTracingExcludes: {
+    "/*": ["./legal/08_PD_PROCESSING_INSTRUCTION_OPTIONAL.md", "./internal_legal/**/*", "./_incoming/**/*"],
+  },
   poweredByHeader: false,
   experimental: { serverActions: { bodySizeLimit: "64kb" } },
   async headers() {

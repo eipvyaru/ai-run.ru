@@ -2,7 +2,9 @@
   "name": "ai-run-ru",
   "version": "2.0.0",
   "private": true,
-  "engines": { "node": "24.21.0" },
+  "engines": {
+    "node": "24.21.0"
+  },
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 8787",
     "build": "next build",
@@ -13,14 +15,16 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "smoke": "tsx scripts/smoke.ts",
     "verify:release": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/verify-release.ps1",
-    "hooks:install": "git config core.hooksPath .githooks"
-    ,"worker": "tsx src/workers/email-worker.ts"
+    "hooks:install": "git config core.hooksPath .githooks",
+    "worker": "tsx src/workers/email-worker.ts"
   },
   "dependencies": {
     "next": "^16.0.0",
     "nodemailer": "^7.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "zod": "^4.0.0"
   },
   "devDependencies": {

@@ -1,0 +1,13 @@
+{
+  "status": "DRAFT_AWAITING_OWNER_APPROVAL",
+  "planned_effective_date": "2026-11-01",
+  "documents": [
+    { "id": "operator", "version": "1.0.0", "source_sha256": "191d62b84e956794985d9614a224e3f2995aefe48eacc2b5ad0c712ef75e82cc", "canonical_url": "https://ai-run.ru/legal/operator", "status": "DRAFT_AWAITING_OWNER_APPROVAL" },
+    { "id": "offer", "version": "1.0.0", "source_sha256": "27963079a855d09149ecc11dc0a6daeb158887b7abb84cd3d635613b08e6722e", "canonical_url": "https://ai-run.ru/legal/offer", "status": "DRAFT_AWAITING_OWNER_APPROVAL" },
+    { "id": "privacy", "version": "1.0.0", "source_sha256": "f35ed60873168a7ca5b3b1b9c47ba2547eec925c2fefc2b4c9c7d4b789646f5e", "canonical_url": "https://ai-run.ru/legal/privacy", "status": "DRAFT_AWAITING_OWNER_APPROVAL" },
+    { "id": "personal-data-consent", "version": "1.0.0", "source_sha256": "fe2151761dc83308d7d0ea03fe5b83c31bdc2314c7859b5749fc3aff50c61813", "canonical_url": "https://ai-run.ru/legal/personal-data-consent", "status": "DRAFT_AWAITING_OWNER_APPROVAL" },
+    { "id": "cookies", "version": "1.0.0", "source_sha256": "95500752e249030fa1053366a20e320fad2af5b38f0dbd9a6edc2146044baa49", "canonical_url": "https://ai-run.ru/cookies", "status": "DRAFT_AWAITING_OWNER_APPROVAL" },
+    { "id": "third-party-data", "version": "1.0.0", "source_sha256": "05c40521ae43131f9b7de862103a58ec42e5250c5a1b51aa7513b0dca4feb425", "canonical_url": "https://ai-run.ru/legal/third-party-data", "status": "DRAFT_AWAITING_OWNER_APPROVAL" },
+    { "id": "data-security", "version": "1.0.0", "source_sha256": "51bd959f27eb6fd47daed2410ba9b6433066c396a97b4d23b25195310e893ab1", "canonical_url": "https://ai-run.ru/legal/data-security", "status": "DRAFT_AWAITING_OWNER_APPROVAL" }
+  ]
+}

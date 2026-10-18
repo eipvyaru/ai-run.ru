@@ -479,3 +479,7 @@ Production deployment сам по себе не требует изменени�
 - Идентификатор/URL конкретной CalDAV collection после discovery — этап 6.
 - Фактические значения `YANDEX_CALDAV_PASSWORD`, `SMTP_PASSWORD` и `ADMIN_PASSWORD` — только в локальном `.env`, никогда не в Git или чате.
 - Брендовые ассеты уже получены: `public/logo.svg` и `public/favicon.svg`; на этапе 9 требуется только их подключение и визуальная проверка.
+
+## Юридический пакет A–F от 18.10.2026
+
+Локальная техническая интеграция семи юридических Markdown-маршрутов документирована в `docs/LEGAL_INSTALLATION_2026-10-18.md`; реестр хэшей — `docs/LEGAL_REGISTRY_2026-10-18.json`. Статус до решения OWNER: `DRAFT_AWAITING_OWNER_APPROVAL`. Production-публикация, передача реестра подпроектам и юридическая приёмка остаются отдельными этапами.

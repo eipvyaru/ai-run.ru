@@ -1,0 +1,16 @@
+.legal-page { max-width: 920px; }
+.legal-page .policy-text { overflow-wrap: anywhere; }
+.legal-page .policy-text h1 { font-size: clamp(2.1rem, 5vw, 3.7rem); line-height: 1.08; letter-spacing: -.04em; margin: 0 0 1.3rem; }
+.legal-page .policy-text h2 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.2; letter-spacing: -.025em; margin: 2.5rem 0 1rem; }
+.legal-page .policy-text h3 { margin: 2rem 0 .7rem; font-size: 1.2rem; }
+.legal-page .policy-text p, .legal-page .policy-text li { color: #303743; line-height: 1.7; }
+.legal-page .policy-text ul, .legal-page .policy-text ol { padding-left: 1.5rem; }
+.legal-page .policy-text li { margin: .45rem 0; }
+.legal-page .policy-text a { color: #4633b6; text-decoration: underline; text-underline-offset: .15em; }
+.legal-page .policy-text a:hover, .legal-page .policy-text a:focus-visible { color: #2f228d; }
+.legal-page .policy-text table { display: block; overflow-x: auto; border-collapse: collapse; max-width: 100%; margin: 1.5rem 0; }
+.legal-page .policy-text th, .legal-page .policy-text td { min-width: 130px; padding: .75rem; border: 1px solid #cfd4df; text-align: left; vertical-align: top; }
+.legal-page .policy-text th { background: #eceef5; }
+.legal-page .policy-text blockquote { margin: 1.5rem 0; padding: .1rem 1rem; border-left: 4px solid #8b5cf6; background: #f3efff; }
+.legal-page .policy-text code { white-space: break-spaces; }
+@media (max-width: 600px) { .legal-page { padding: 24px 18px 70px; } .legal-page header { margin-bottom: 44px; } }

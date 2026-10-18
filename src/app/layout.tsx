@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./visual-refresh.css";
+import "./legal.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ai-run.ru"),

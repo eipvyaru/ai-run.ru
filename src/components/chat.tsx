@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 type Message = { role: "assistant" | "user" | "error"; text: string };
 type SpeechResult = { readonly isFinal: boolean; readonly 0: { readonly transcript: string } };
@@ -142,6 +143,6 @@ export function Chat() {
       </div>
       {(listening || voiceError) && <p className={`voice-status${voiceError ? " error" : ""}`} aria-live="polite">{voiceError || "Слушаю… Речь распознаёт браузер; проверьте текст перед отправкой."}</p>}
     </form>
-    {!consented && <label className="consent"><input type="checkbox" checked={false} disabled={busy} onChange={(event) => acceptConsent(event.target.checked)}/><span>Я даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy" target="_blank" rel="noreferrer">Политикой обработки персональных данных</a>. Я обязуюсь здесь не указывать никакие свои персональные данные кроме имени и телефона.</span></label>}
+    {!consented && <label className="consent"><input type="checkbox" checked={false} disabled={busy} onChange={(event) => acceptConsent(event.target.checked)}/><span>Я даю согласие на обработку моих персональных данных в соответствии с <Link href="/legal/privacy" target="_blank" rel="noreferrer">Политикой обработки персональных данных</Link>. Я обязуюсь здесь не указывать никакие свои персональные данные кроме имени и телефона.</span></label>}
   </section>;
 }

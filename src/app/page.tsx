@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Chat } from "@/components/chat";
 import { ChatCta } from "@/components/chat-cta";
 
@@ -78,6 +79,6 @@ export default function Home() {
     </section>
 
     <section className="final-cta"><p className="eyebrow"><span /> Начнём с конкретной проблемы</p><h2>Не уверены, какую задачу<br/>можно передать AI?</h2><p>Расскажите, где сейчас возникают задержки, потерянные задачи или постоянный ручной контроль. Начать можно без технического задания.</p><ChatCta className="button light">Найти, что можно передать AI <span>↗</span></ChatCta></section>
-    <footer><Image src="/logo.svg" width={160} height={50} alt="AI-Run"/><p>AI-агенты для бизнеса</p><a href="/privacy-policy">Политика обработки персональных данных</a><a href="/admin">Настройки</a><span>© 2026 AI-Run</span></footer>
+    <footer><Image src="/logo.svg" width={160} height={50} alt="AI-Run"/><p>AI-агенты для бизнеса</p><Link href="/legal/privacy">Политика обработки персональных данных</Link><a href="/admin">Настройки</a><span>© 2026 AI-Run</span></footer>
   </main>;
 }
