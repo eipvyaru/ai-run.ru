@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-export const LEGAL_STATUS = "DRAFT_AWAITING_OWNER_APPROVAL" as const;
+export const LEGAL_STATUS = "APPROVED_AWAITING_PUBLICATION" as const;
 export const LEGAL_VERSION = "1.0.0";
 export const PLANNED_EFFECTIVE_DATE = "2026-11-01";
 
