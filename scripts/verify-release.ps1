@@ -24,6 +24,10 @@ try {
   Invoke-CheckedNpm 'lint'
   Invoke-CheckedNpm 'typecheck'
   Invoke-CheckedNpm 'test'
+  npm audit --omit=dev --audit-level=moderate
+  if ($LASTEXITCODE -ne 0) {
+    throw "Production dependency audit failed with exit code $LASTEXITCODE"
+  }
   Invoke-CheckedNpm 'build'
   Write-Output 'Release verification passed'
 } finally {

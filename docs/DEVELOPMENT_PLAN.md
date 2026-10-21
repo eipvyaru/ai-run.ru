@@ -400,7 +400,7 @@ Health handlers, logging, audit and retention jobs, operational scripts.
 
 **Проверки**
 
-Полная матрица 15 критериев приёмки ТЗ; `npm audit --audit-level=moderate`; lint, typecheck, tests, build; clean Git status в verification worktree.
+Полная матрица 15 критериев приёмки ТЗ; `npm audit --omit=dev --audit-level=moderate`; lint, typecheck, tests, build; clean Git status в verification worktree. Текущая dev-only цепочка `eslint-config-next → fast-glob → micromatch → braces@3.0.3` отмечена GHSA-vfj7-8cjw-p6xm; на 21.10.2026 advisory не содержит исправленной версии braces.
 
 **Критерий завершения**
 
