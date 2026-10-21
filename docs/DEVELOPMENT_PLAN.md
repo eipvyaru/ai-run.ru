@@ -391,6 +391,7 @@ Health handlers, logging, audit and retention jobs, operational scripts.
 - Playwright E2E для публичного и admin flows.
 - `npm run smoke` без платных или необратимых действий.
 - `npm run verify:release` в чистом временном worktree.
+- Release gate применяет миграции только к временной SQLite-БД и считает ненулевой код любого шага ошибкой.
 - Secret scanning и tracked-sensitive-file checks в pre-commit.
 
 **Изменяемые компоненты**

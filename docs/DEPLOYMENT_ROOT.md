@@ -30,7 +30,7 @@ Ubuntu LTS, Node.js/npm указанной версии, Nginx, systemd, Certbot
 
 ## 8. Передача .env
 
-Передать `data/.env.vps` отдельно как `/var/www/ai-run.ru/.env`, права `600`. Не выводить содержимое в консоль.
+Сначала выполнить `scripts/sync-vps-env.ps1`: production-файл получает `NODE_ENV=production`, `APP_ORIGIN=https://ai-run.ru`, `TRUSTED_PROXY=true` и абсолютные пути базы/prompt. Передать `data/.env.vps` отдельно как `/var/www/ai-run.ru/.env`, права `600`. Не выводить содержимое в консоль.
 
 ## 9. Передача system prompt
 
@@ -42,7 +42,7 @@ Ubuntu LTS, Node.js/npm указанной версии, Nginx, systemd, Certbot
 
 ## 11. Build
 
-Выполнить lint, typecheck, tests и `npm run build` без production-вызовов интеграций.
+До деплоя выполнить `npm run verify:release`: миграционная проверка использует отдельную временную SQLite-БД, каждый npm-процесс обязан завершиться с кодом 0, production-интеграции не вызываются. Затем на VPS выполнить lint, typecheck, tests и `npm run build`.
 
 ## 12. Миграции
 
