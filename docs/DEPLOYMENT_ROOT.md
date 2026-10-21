@@ -58,7 +58,7 @@ Ubuntu LTS, Node.js/npm указанной версии, Nginx, systemd, Certbot
 
 ## 15. Nginx HTTP
 
-Установить только конфиг проекта, выполнить `nginx -t`, включить site и reload. Не изменять другие sites.
+Создать `/var/lib/letsencrypt/ai-run.ru`, установить `deploy/nginx/ai-run.ru-bootstrap.conf` как `/etc/nginx/sites-available/ai-run.ru.conf`, включить только этот site, выполнить `nginx -t` и reload. Bootstrap отдаёт только ACME challenge и не публикует приложение по незашифрованному HTTP.
 
 ## 16. DNS
 
@@ -66,7 +66,7 @@ Ubuntu LTS, Node.js/npm указанной версии, Nginx, systemd, Certbot
 
 ## 17. Certbot / HTTPS
 
-Только после HTTP выполнить Certbot, проверить certificate, renew timer и dry-run.
+Выпустить сертификат через webroot `/var/lib/letsencrypt/ai-run.ru` для `ai-run.ru`. После выпуска установить `deploy/nginx/ai-run.ru.conf` с HTTPS proxy и HTTP redirect, выполнить `nginx -t` и reload. Проверить certificate, renew timer и dry-run.
 
 ## 18. Production checks
 
