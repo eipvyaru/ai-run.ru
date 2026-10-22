@@ -1,57 +1,58 @@
 {
   "status": "DRAFT_REVIEW",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "revision_date": "2026-10-22",
   "planned_effective_date": "2026-11-01",
   "documents": [
     {
       "id": "operator",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "source_sha256": "7344f90e0d49a4130f7d83e49d2d5d51b008acfc2b7020842c444f843a8f4f0b",
       "canonical_url": "https://ai-run.ru/legal/operator",
       "status": "DRAFT_REVIEW"
     },
     {
       "id": "offer",
-      "version": "1.1.0",
-      "source_sha256": "e36ca66e77d418d886d89307a2402fb70a8751a6d04bffbc57dd3cfccb67a422",
+      "version": "1.2.0",
+      "source_sha256": "88f4abadda1c8d3962203b36aadae7fc9c62d108456cf5b15522f111d92e7d91",
       "canonical_url": "https://ai-run.ru/legal/offer",
       "status": "DRAFT_REVIEW"
     },
     {
       "id": "privacy",
-      "version": "1.1.0",
-      "source_sha256": "80d27a156320b982eeabb933d2da3d63c58b129dc4df19d9cf770b5f9147f48b",
+      "version": "1.2.0",
+      "source_sha256": "fca9b540c19ba26ae67d0608d3697723ee4b5b246a774a05aa6f3c7c0bd755f8",
       "canonical_url": "https://ai-run.ru/legal/privacy",
       "status": "DRAFT_REVIEW"
     },
     {
       "id": "personal-data-consent",
-      "version": "1.1.0",
-      "source_sha256": "3984a08eab7d32bffa4ba652bb4ac073ec98a81f761a29f1efec9817298b919a",
+      "version": "1.2.0",
+      "source_sha256": "be08da06a4756f2d4c0e32dd6b979683e0fe77ec3d17873c81e977aff9d4f640",
       "canonical_url": "https://ai-run.ru/legal/personal-data-consent",
       "status": "DRAFT_REVIEW"
     },
     {
       "id": "cookies",
-      "version": "1.1.0",
-      "source_sha256": "ca0c1690a554e02eabd39a492d585852b6e3bd1ab736955414c3b53fd9651af5",
+      "version": "1.2.0",
+      "source_sha256": "267dc4b9232504fa02fbde42fdb7ee96b346c719c22ef2c5a6176b612d9f2672",
       "canonical_url": "https://ai-run.ru/cookies",
       "status": "DRAFT_REVIEW"
     },
     {
       "id": "third-party-data",
-      "version": "1.1.0",
-      "source_sha256": "d82108c9474acea1f678280d55de9b55ffebaf59f7fab979ef6a2da242b9105f",
+      "version": "1.2.0",
+      "source_sha256": "fcd8e8d60c4b526d8f88467967778a47657e60de0572708bb827b40170b082d5",
       "canonical_url": "https://ai-run.ru/legal/third-party-data",
       "status": "DRAFT_REVIEW"
     },
     {
       "id": "data-security",
-      "version": "1.1.0",
-      "source_sha256": "10f0742c414dcda1c3e69cf3681d159703dd732e41163b1d9325472d9a597ca3",
+      "version": "1.2.0",
+      "source_sha256": "ac106822d387bd19e8397cd9022c6a0788689ca22b037872ecac396136d52fed",
       "canonical_url": "https://ai-run.ru/legal/data-security",
       "status": "DRAFT_REVIEW"
     }
-  ]
+  ],
+  "previous_version": "1.1.0"
 }
