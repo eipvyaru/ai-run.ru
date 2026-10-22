@@ -28,7 +28,7 @@ describe("legal A–F package", () => {
       expect(file).toBeDefined();
       const source = readFileSync(resolve("legal", file));
       expect(item.source_sha256).toBe(createHash("sha256").update(source).digest("hex"));
-      expect(item.version).toBe("1.2.0");
+      expect(item.version).toBe("1.2.1");
       expect(item.status).toBe(registry.status);
       expect(item.canonical_url).toMatch(/^https:\/\/ai-run\.ru\/(legal\/[a-z-]+|cookies)$/);
       expect(source.toString("utf8")).not.toMatch(/\{[^}]+\}/);

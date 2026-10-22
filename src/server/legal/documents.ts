@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 export const LEGAL_STATUS = "DRAFT_REVIEW" as const;
-export const LEGAL_VERSION = "1.2.0";
+export const LEGAL_VERSION = "1.2.1";
 export const PLANNED_EFFECTIVE_DATE = "2026-11-01";
 
 const documents = [
