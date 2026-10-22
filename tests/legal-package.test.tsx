@@ -20,7 +20,7 @@ const files: Record<string, string> = {
 describe("legal A–F package", () => {
   it("registry matches the exact seven Markdown sources", () => {
     const registry = JSON.parse(readFileSync(resolve("docs/LEGAL_REGISTRY_2026-10-22.json"), "utf8")) as Registry;
-    expect(registry.status).toBe("DRAFT_REVIEW");
+    expect(registry.status).toBe("APPROVED");
     expect(registry.documents).toHaveLength(7);
     expect(new Set(registry.documents.map((item) => item.id)).size).toBe(7);
     for (const item of registry.documents) {

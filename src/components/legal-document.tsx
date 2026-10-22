@@ -19,7 +19,7 @@ export function LegalDocument({ document }: { document: Document }) {
   return <main className="policy-page legal-page">
     <header><Link href="/"><Image src="/logo.svg" width={150} height={45} alt="AI-Run" /></Link><Link href="/">← На главную</Link></header>
     <p className="section-index">ЮРИДИЧЕСКИЕ ДОКУМЕНТЫ</p>
-    <p className="policy-note">Редакция {document.version}.{document.status === "DRAFT_REVIEW" ? " Подготовлена для рассмотрения; не вступила в силу." : ""}</p>
+    <p className="policy-note">Редакция {document.version}. Дата вступления в силу — {document.planned_effective_date.split("-").reverse().join(".")}.</p>
     <article className="policy-text"><SafeLegalMarkdown markdown={document.markdown} /></article>
   </main>;
 }
