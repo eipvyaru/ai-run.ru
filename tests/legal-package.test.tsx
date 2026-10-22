@@ -19,8 +19,8 @@ const files: Record<string, string> = {
 
 describe("legal A–F package", () => {
   it("registry matches the exact seven Markdown sources", () => {
-    const registry = JSON.parse(readFileSync(resolve("docs/LEGAL_REGISTRY_2026-10-18.json"), "utf8")) as Registry;
-    expect(registry.status).toBe("APPROVED_AWAITING_PUBLICATION");
+    const registry = JSON.parse(readFileSync(resolve("docs/LEGAL_REGISTRY_2026-10-22.json"), "utf8")) as Registry;
+    expect(registry.status).toBe("DRAFT_REVIEW");
     expect(registry.documents).toHaveLength(7);
     expect(new Set(registry.documents.map((item) => item.id)).size).toBe(7);
     for (const item of registry.documents) {
@@ -28,7 +28,7 @@ describe("legal A–F package", () => {
       expect(file).toBeDefined();
       const source = readFileSync(resolve("legal", file));
       expect(item.source_sha256).toBe(createHash("sha256").update(source).digest("hex"));
-      expect(item.version).toBe("1.0.0");
+      expect(item.version).toBe("1.1.0");
       expect(item.status).toBe(registry.status);
       expect(item.canonical_url).toMatch(/^https:\/\/ai-run\.ru\/(legal\/[a-z-]+|cookies)$/);
       expect(source.toString("utf8")).not.toMatch(/\{[^}]+\}/);

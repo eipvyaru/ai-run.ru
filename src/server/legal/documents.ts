@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-export const LEGAL_STATUS = "APPROVED_AWAITING_PUBLICATION" as const;
-export const LEGAL_VERSION = "1.0.0";
+export const LEGAL_STATUS = "DRAFT_REVIEW" as const;
+export const LEGAL_VERSION = "1.1.0";
 export const PLANNED_EFFECTIVE_DATE = "2026-11-01";
 
 const documents = [
