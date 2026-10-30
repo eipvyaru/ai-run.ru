@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-10-30",
+  "status": "RECORDINGS_PENDING",
+  "scope": "ASR comparison only; no chat submission or production integrations",
+  "reference_clock": "2026-10-30T12:00:00+03:00",
+  "phone_policy": "Учебные последовательности с кодом 000; не использовать для звонков. Проверка валидности номера для бронирования в эти тесты не входит.",
+  "model": {
+    "name": "sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16",
+    "revision": "a6039be7cee829a9044a69ac0ebaf1c191217c97",
+    "num_threads": 2,
+    "provider": "cpu"
+  },
+  "example": {
+    "id": "EX01",
+    "spoken": "Меня зовут Марина. Мой учебный номер: плюс семь, ноль, ноль, ноль, один, два, три, четыре, пять, шесть, семь. Хочу обсудить обработку заявок. Созвон — третьего ноября две тысячи двадцать шестого года в пятнадцать тридцать по московскому времени.",
+    "expected_display": "Меня зовут Марина. Мой учебный номер: +7 000 123-45-67. Хочу обсудить обработку заявок. Созвон — 3 ноября 2026 года в 15:30 по московскому времени.",
+    "expected_entities": {
+      "name": "Марина",
+      "phone": "+70001234567",
+      "date": "2026-11-03",
+      "time": "15:30",
+      "timezone": "Europe/Moscow",
+      "intent": "обсудить обработку заявок"
+    },
+    "wav_example_path": "data/asr-evaluation/audio/EX01_S01_quiet.wav",
+    "notes": "expected_display — желательное оформление, а не единственно допустимая строка. EX01 не входит в основной подсчёт 16 речевых фраз."
+  },
+  "cases": [
+    {
+      "id": "T01",
+      "category": "name",
+      "spoken": "Меня зовут Марина.",
+      "expected_entities": {
+        "name": "Марина"
+      }
+    },
+    {
+      "id": "T02",
+      "category": "name",
+      "spoken": "Меня зовут Евгения Семёнова.",
+      "expected_entities": {
+        "name": "Евгения Семёнова"
+      }
+    },
+    {
+      "id": "T03",
+      "category": "phone_digits",
+      "spoken": "Мой учебный номер: плюс семь, ноль, ноль, ноль, один, два, три, четыре, пять, шесть, семь.",
+      "expected_entities": {
+        "phone": "+70001234567"
+      }
+    },
+    {
+      "id": "T04",
+      "category": "phone_groups",
+      "spoken": "Мой учебный номер: плюс семь, три нуля, сто двадцать три, сорок пять, шестьдесят семь.",
+      "expected_entities": {
+        "phone": "+70001234567"
+      }
+    },
+    {
+      "id": "T05",
+      "category": "phone_national_prefix",
+      "spoken": "Мой учебный номер: восемь, ноль, ноль, ноль, один, два, три, четыре, пять, шесть, семь.",
+      "expected_entities": {
+        "phone": "+70001234567"
+      }
+    },
+    {
+      "id": "T06",
+      "category": "phone_repeated_digits",
+      "spoken": "Учебный номер: плюс семь, ноль, ноль, ноль, девять, девять, восемь, восемь, ноль, ноль, ноль.",
+      "expected_entities": {
+        "phone": "+70009988000"
+      }
+    },
+    {
+      "id": "T07",
+      "category": "date_time",
+      "spoken": "Назначьте разговор на третье ноября две тысячи двадцать шестого года в пятнадцать тридцать по московскому времени.",
+      "expected_entities": {
+        "date": "2026-11-03",
+        "time": "15:30",
+        "timezone": "Europe/Moscow"
+      }
+    },
+    {
+      "id": "T08",
+      "category": "time_words",
+      "spoken": "Мне удобно в половине четвёртого дня по Москве.",
+      "expected_entities": {
+        "date": null,
+        "time": "15:30",
+        "timezone": "Europe/Moscow"
+      }
+    },
+    {
+      "id": "T09",
+      "category": "relative_date",
+      "spoken": "Позвоните послезавтра в шестнадцать часов по Москве.",
+      "expected_entities": {
+        "date": "2026-11-01",
+        "time": "16:00",
+        "timezone": "Europe/Moscow"
+      }
+    },
+    {
+      "id": "T10",
+      "category": "business",
+      "spoken": "Заявки поступают с сайта, но менеджер отвечает слишком поздно.",
+      "expected_entities": {}
+    },
+    {
+      "id": "T11",
+      "category": "business",
+      "spoken": "Нужно автоматически собирать обращения и передавать их ответственному сотруднику.",
+      "expected_entities": {}
+    },
+    {
+      "id": "T12",
+      "category": "punctuation",
+      "spoken": "Здравствуйте! Вы можете помочь? Да, хочу обсудить задачу.",
+      "expected_entities": {},
+      "notes": "Знаки в spoken — сценарий чтения; произносить естественную интонацию, не слова «запятая» и «вопросительный знак»."
+    },
+    {
+      "id": "T13",
+      "category": "long_pause",
+      "spoken": "Мне удобно [пауза 2 секунды] в пятнадцать тридцать.",
+      "expected_entities": {
+        "time": "15:30"
+      },
+      "notes": "Текст в квадратных скобках — инструкция записи, не произносится."
+    },
+    {
+      "id": "T14",
+      "category": "self_correction",
+      "spoken": "Во вторник в пятнадцать, нет, в шестнадцать тридцать.",
+      "expected_entities": {
+        "weekday": "вторник",
+        "time": "16:30"
+      },
+      "notes": "ASR должен сохранить исправление, а не молча удалить первые слова. Итоговое время оценивается отдельно как смысл."
+    },
+    {
+      "id": "T15",
+      "category": "digit_sequence",
+      "spoken": "Проверочный код: ноль, один, два, три, четыре, пять, шесть, семь, восемь, девять.",
+      "expected_entities": {
+        "digit_sequence": "0123456789"
+      }
+    },
+    {
+      "id": "T16",
+      "category": "time_leading_zero",
+      "spoken": "Разговор в девять ноль пять утра.",
+      "expected_entities": {
+        "date": null,
+        "time": "09:05"
+      },
+      "notes": "Проверяется распознавание времени, а не разрешённость слота расписанием."
+    },
+    {
+      "id": "N01",
+      "category": "silence",
+      "spoken": null,
+      "expected_entities": {},
+      "expected_no_text": true,
+      "notes": "Цифровая тишина 5 секунд."
+    },
+    {
+      "id": "N02",
+      "category": "noise_only",
+      "spoken": null,
+      "expected_entities": {},
+      "expected_no_text": true,
+      "notes": "5 секунд шума без речи."
+    },
+    {
+      "id": "N03",
+      "category": "non_speech",
+      "spoken": null,
+      "expected_entities": {},
+      "expected_no_text": true,
+      "notes": "5 секунд: щелчки клавиатуры и дыхание без слов."
+    },
+    {
+      "id": "N04",
+      "category": "boundary",
+      "spoken": "Игорь.",
+      "expected_entities": {
+        "name": "Игорь"
+      },
+      "notes": "Начать речь сразу после подтверждения готовности микрофона; проверить потерю начала и конца слова."
+    }
+  ]
+}
