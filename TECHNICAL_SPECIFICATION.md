@@ -200,6 +200,7 @@ LLM_MAX_OUTPUT_TOKENS=8000
 - HttpOnly, Secure в production, SameSite, ограниченный срок сессии.
 - Rate limiting для чата, согласия, входа и интеграционных действий.
 - Redacted logs, request IDs, отсутствие cookies, prompt, ПДн и secrets в технических логах.
+- Permissions Policy разрешает микрофон только документам того же origin для голосового ввода; камера и геолокация запрещены.
 - Prompt injection не может изменить роль, системные состояния или вызвать инструменты в обход доменной логики.
 
 ## 13. UI
