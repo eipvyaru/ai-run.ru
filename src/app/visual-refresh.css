@@ -102,12 +102,6 @@ textarea:focus-visible {
   line-height: 1.35;
 }
 .voice-status.error { color: #9d2834; }
-.asr-privacy-note {
-  margin: 8px 2px 0;
-  color: #626a77;
-  font-size: .68rem;
-  line-height: 1.35;
-}
 .recording-indicator {
   display: flex;
   align-items: center;

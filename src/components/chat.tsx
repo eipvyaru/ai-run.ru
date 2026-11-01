@@ -312,7 +312,6 @@ export function Chat() {
         <span className="recording-countdown" role="timer" aria-label={`До предельного времени записи ${recordingRemaining} секунд`} title={`Запись завершится раньше после ${Math.ceil(asrConfig.silenceMs / 1000)} секунд тишины`}>{recordingRemaining} с</span>
         <button className="recording-stop" type="button" onClick={stopVoiceInput}>Остановить</button>
       </div>}
-      {consented && !listening && <p className="asr-privacy-note">{asrConfig.engine === "sherpa" ? "Основное распознавание выполняется локальной моделью. При её сбое браузер может обработать уже записанное аудио. Новая запись автоматически не запускается." : "Выбрано браузерное распознавание. Браузер может передавать аудио своему сервису распознавания."}</p>}
       {!listening && (asrBusy || voiceError || voiceStatus) && <p className={`voice-status${voiceError ? " error" : ""}`} aria-live="polite">{voiceError && <span>{voiceError} </span>}{voiceStatus && voiceStatus !== voiceError && <span>{voiceStatus}</span>}</p>}
     </form>
     {!consented && <label className="consent"><input type="checkbox" checked={false} disabled={busy} onChange={(event) => acceptConsent(event.target.checked)}/><span>Я даю согласие на обработку моих персональных данных в соответствии с <Link href="/legal/privacy" target="_blank" rel="noreferrer">Политикой обработки персональных данных</Link>. Я обязуюсь здесь не указывать никакие свои персональные данные кроме имени и телефона.</span></label>}
