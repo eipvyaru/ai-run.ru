@@ -19,11 +19,12 @@
 
    ```dotenv
    APP_DOCKER_PORT=8787
+   APP_DOCKER_ORIGIN=http://127.0.0.1:8787
    AI_RUN_DATA_HOST_PATH=./docker-data
    ASR_MODEL_HOST_PATH=C:/_Codex/_Models/sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16
    ```
 
-   `ASR_SERVICE_TOKEN` должен быть заполнен случайным секретом не короче 32 символов. Не публикуйте `.env` и не копируйте его в образ.
+   `APP_DOCKER_ORIGIN` должен совпадать с origin страницы в браузере (включая порт). `ASR_SERVICE_TOKEN` должен быть заполнен случайным секретом не короче 32 символов. Не публикуйте `.env` и не копируйте его в образ.
 
 2. Создайте отдельный каталог данных контейнерного preview и скопируйте туда prompt. Не монтируйте локальный рабочий `data/` целиком: там могут находиться секретные env-файлы и настоящая база.
 
