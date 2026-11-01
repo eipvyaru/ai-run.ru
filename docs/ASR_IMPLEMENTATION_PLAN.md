@@ -217,8 +217,8 @@ Rollback: переключить режим на browser, при необход�
 | 1. Python-сервис | DONE | `asr/service.py`, pinned runtime, bounded sequential queue, authenticated loopback API, ffmpeg decode and cleanup. Model manifest verified; real 11.29s WAV decoded through service, 161 chars, 1.09s end-to-end; unauthenticated request rejected. Four Python boundary tests passed. |
 | 2. Настройки и журнал | DONE | Migration 002 adds default Sherpa settings and ASR-only error table; application code enforces allowlists, 1 KiB UTF-8 event cap, transactional 1000-row ring and paginated filtering. Added test: 1005 events retain exactly 1000, no content/PII fields. typecheck/lint and 13 tests passed. |
 | 3. Серверные маршруты | DONE | Added public config, authenticated consent-bound upload, browser event intake, dedicated admin settings and journal APIs. Loopback URL enforced; no audio before valid signed cookie + live consent session; cross-origin mutations rejected; service secrets never returned. Route security tests, lint, typecheck, 18 tests passed. |
-| 4. Клиент и режимы | NOT_STARTED | |
-| 5. Fallback | NOT_STARTED | |
+| 4. Клиент и режимы | DONE | Chat now loads mode, records up to 60s with silence/no-speech stop, manual stop, sample-rate/container upload, preserves user draft, and never auto-sends. Browser mode retains direct SpeechRecognition. Typecheck and client capability tests passed. |
+| 5. Fallback | DONE | Sherpa errors attempt `SpeechRecognition.start(audioTrack)` only for desktop Chromium versions with documented support; fallback decodes same Blob through Web Audio, never calls new getUserMedia. Unsupported browsers keep text entry and explicitly say no repeat dictation. Capability, no-mobile/no-legacy, and draft de-duplication tests added; end-to-end browser validation remains in stage 8. |
 | 6. Админка | NOT_STARTED | |
 | 7. Deployment и документация | NOT_STARTED | |
 | 8. Приёмка и release | NOT_STARTED | |

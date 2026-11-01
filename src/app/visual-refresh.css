@@ -102,6 +102,26 @@ textarea:focus-visible {
   line-height: 1.35;
 }
 .voice-status.error { color: #9d2834; }
+.asr-privacy-note {
+  margin: 8px 2px 0;
+  color: #626a77;
+  font-size: .68rem;
+  line-height: 1.35;
+}
+.chat-form .asr-stop-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-top: 8px;
+  padding: 0 12px;
+  border: 1px solid #d6d9e0;
+  border-radius: 7px;
+  background: #fff;
+  color: #252a33;
+  box-shadow: none;
+  font-size: .76rem;
+  cursor: pointer;
+}
 @keyframes voice-pulse {
   50% { box-shadow: 0 0 0 5px rgb(216 82 97 / 14%); }
 }
