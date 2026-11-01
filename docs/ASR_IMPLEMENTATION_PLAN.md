@@ -213,8 +213,8 @@ Rollback: переключить режим на browser, при необход�
 
 | Этап | Статус | Commit / результат |
 |---|---|---|
-| 0. Инвентаризация | NOT_STARTED | |
-| 1. Python-сервис | NOT_STARTED | |
+| 0. Инвентаризация | DONE | Python 3.13.12 доступен через uv; sherpa-onnx 1.13.8 wheel устанавливается; model manifest подтверждён, модель расположена по согласованному пути. На машине не обнаружен ffmpeg в PATH; отдельно проверяется локальный декодер и воспроизводимая поставка. |
+| 1. Python-сервис | DONE | `asr/service.py`, pinned runtime, bounded sequential queue, authenticated loopback API, ffmpeg decode and cleanup. Model manifest verified; real 11.29s WAV decoded through service, 161 chars, 1.09s end-to-end; unauthenticated request rejected. Four Python boundary tests passed. |
 | 2. Настройки и журнал | NOT_STARTED | |
 | 3. Серверные маршруты | NOT_STARTED | |
 | 4. Клиент и режимы | NOT_STARTED | |
