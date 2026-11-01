@@ -5,6 +5,7 @@ out/
 .env
 data/*
 !data/.gitkeep
+/docker-data/
 coverage/
 playwright-report/
 test-results/

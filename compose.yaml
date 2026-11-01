@@ -1,0 +1,95 @@
+name: ai-run-ru
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      DATABASE_PATH: /var/lib/ai-run.ru/ai-run.ru.sqlite
+      SYSTEM_PROMPT_PATH: /var/lib/ai-run.ru/system_prompt.md
+      ASR_SERVICE_URL: http://asr:8796
+    ports:
+      - "127.0.0.1:${APP_DOCKER_PORT:-8787}:3000"
+    volumes:
+      - type: bind
+        source: ${AI_RUN_DATA_HOST_PATH:-./docker-data}
+        target: /var/lib/ai-run.ru
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+      - /app/.next/cache:rw,noexec,nosuid,size=128m
+    read_only: true
+    init: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 128
+    networks:
+      - default
+      - asr-private
+    depends_on:
+      asr:
+        condition: service_started
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+
+  asr:
+    build:
+      context: .
+      dockerfile: asr/Dockerfile
+    environment:
+      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set ASR_SERVICE_TOKEN in .env}
+      ASR_MODEL_DIR: /model
+      ASR_TEMP_DIR: /tmp/asr
+      ASR_FFMPEG_PATH: /usr/bin/ffmpeg
+      ASR_MAX_AUDIO_SECONDS: "60"
+      ASR_MAX_UPLOAD_BYTES: "8388608"
+      ASR_NUM_THREADS: "2"
+      ASR_REQUEST_TIMEOUT_SECONDS: "45"
+    volumes:
+      - type: bind
+        source: ${ASR_MODEL_HOST_PATH:?Set ASR_MODEL_HOST_PATH in .env}
+        target: /model
+        read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    read_only: true
+    init: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 64
+    networks:
+      - asr-private
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8796/ready', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 180s
+
+networks:
+  default: {}
+  asr-private:
+    name: ai-run-internal-services
+    internal: true

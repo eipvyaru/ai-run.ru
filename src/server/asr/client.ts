@@ -5,11 +5,15 @@ const MAX_AUDIO_BYTES = 8 * 1024 * 1024;
 
 export type AsrGatewayResult = { ok: true; requestId: string; text: string } | { ok: false; requestId: string; code: string; status: number };
 
+export function isAllowedAsrEndpoint(endpoint: URL): boolean {
+  const isLoopback = endpoint.hostname === "127.0.0.1" || endpoint.hostname === "localhost" || endpoint.hostname === "[::1]" || endpoint.hostname === "::1";
+  const isComposeAsr = endpoint.hostname === "asr" && endpoint.protocol === "http:" && endpoint.port === "8796";
+  return (isLoopback || isComposeAsr) && !endpoint.username && !endpoint.password;
+}
+
 function internalEndpoint(): URL {
   const endpoint = new URL(env().ASR_SERVICE_URL);
-  if (!((endpoint.hostname === "127.0.0.1") || endpoint.hostname === "localhost" || endpoint.hostname === "[::1]" || endpoint.hostname === "::1")) {
-    throw new Error("ASR service must use loopback");
-  }
+  if (!isAllowedAsrEndpoint(endpoint)) throw new Error("ASR service must use loopback or the private Docker ASR service");
   endpoint.pathname = `${endpoint.pathname.replace(/\/$/, "")}/transcribe`;
   endpoint.search = "";
   endpoint.hash = "";
