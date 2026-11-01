@@ -220,8 +220,8 @@ Rollback: переключить режим на browser, при необход�
 | 4. Клиент и режимы | DONE | Chat now loads mode, records up to 60s with silence/no-speech stop, manual stop, sample-rate/container upload, preserves user draft, and never auto-sends. Browser mode retains direct SpeechRecognition. Typecheck and client capability tests passed. |
 | 5. Fallback | DONE | Sherpa errors attempt `SpeechRecognition.start(audioTrack)` only for desktop Chromium versions with documented support; fallback decodes same Blob through Web Audio, never calls new getUserMedia. Unsupported browsers keep text entry and explicitly say no repeat dictation. Capability, no-mobile/no-legacy, and draft de-duplication tests added; end-to-end browser validation remains in stage 8. |
 | 6. Админка | DONE | Compact ASR card added to current dashboard, exposes active mode and readiness, saves only `asr_engine`; separate protected journal page provides filters, pagination, full CSV export of up to 1000 events, and confirmed log-only deletion. Unauthorized and cross-origin/confirmation behavior tested. UI viewport checks remain in stage 8. |
-| 7. Deployment и документация | NOT_STARTED | |
-| 8. Приёмка и release | NOT_STARTED | |
+| 7. Deployment и документация | DONE | Порт 8794 закреплён вместо занятого 8793; добавлены модельный SHA manifest, allowlisted ASR env-файл, systemd/Nginx, инструкции установки/update/rollback, Python 3.12.3 setup и обязательные Python boundary tests в `verify:release`. Пять Python тестов и настоящий model/API smoke пройдены; Linux wheel и VPS RAM до deployment проверить на сервере. |
+| 8. Приёмка и release | IN_PROGRESS | Полный `npm run verify:release` прошёл: Python 5/5, Node 23/23, lint, typecheck, audit 0 vulnerabilities и production build. Реальный model smoke: 11.29 s, decode 1.313 s, 161 символ (текст скрыт). Сквозной локальный API smoke: readiness, token, Sherpa decode и cleanup прошли; browser UI проверен на desktop, мобильное окно/реальное microphone permission не тестировались, см. readiness report. |
 
 ## 13. Критерии готовности к развёртыванию
 

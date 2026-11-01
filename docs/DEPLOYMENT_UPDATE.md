@@ -30,3 +30,7 @@
 Checkout `PREVIOUS_COMMIT`, `npm ci`, build, restart. SQLite автоматически не откатывать.
 ## 15. диагностика
 Проверить systemd/Nginx logs с redaction. Обычный update не заменяет `.env`, SQLite, system prompt или persistent data.
+
+## ASR
+
+ASR является отдельной systemd-службой и обновляется только по `docs/ASR_OPERATIONS.md`. Перед заменой модели проверить закреплённый manifest и smoke. При web rollback оставить модель и `.env` на месте, выбрать browser через админку при необходимости.

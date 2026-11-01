@@ -22,7 +22,10 @@ npm run db:migrate
 npm run worker
 npm run smoke
 npm run verify:release
+scripts/setup-asr-runtime.ps1
 ```
+
+ASR runtime и проверки описаны в [инструкции эксплуатации](docs/ASR_OPERATIONS.md). Перед `verify:release` установить локальный Python runtime 3.12.3 командой `scripts/setup-asr-runtime.ps1`; веса модели для обычных автоматических проверок не требуются.
 
 ## Первый локальный запуск
 
@@ -34,6 +37,8 @@ npm run verify:release
 - [План разработки](docs/DEVELOPMENT_PLAN.md)
 - [Первичное развёртывание](docs/DEPLOYMENT_ROOT.md)
 - [Обновление production](docs/DEPLOYMENT_UPDATE.md)
+- [Эксплуатация ASR](docs/ASR_OPERATIONS.md)
+- [Готовность ASR к release](docs/ASR_RELEASE_READINESS.md)
 - [Стандарт проекта](docs/AI_RUN_PROJECT_STANDARD.md)
 
 Application-level backup не реализован. Обязателен внешний backup VPS и checkpoint перед опасными миграциями.

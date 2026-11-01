@@ -1,18 +1,22 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import hmac
+import json
 import os
 import shutil
 import subprocess
 import tempfile
 import time
+from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, Header, HTTPException, Request, UploadFile
+from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
+from starlette.datastructures import UploadFile
 
 MODEL_DIR = Path(os.environ.get("ASR_MODEL_DIR", "./model")).resolve()
 TEMP_DIR = Path(os.environ.get("ASR_TEMP_DIR", "./tmp")).resolve()
@@ -25,9 +29,8 @@ DEADLINE_SECONDS = float(os.environ.get("ASR_REQUEST_TIMEOUT_SECONDS", "45"))
 SAMPLE_RATE = 16_000
 MAX_PCM_BYTES = SAMPLE_RATE * 2 * MAX_SECONDS
 
-app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 recognizer: Any = None
-jobs: asyncio.Queue[tuple[bytes, str, asyncio.Future[dict[str, str]], float]]
+jobs: asyncio.Queue[tuple[bytes, str, asyncio.Future[dict[str, str]], float]] | None = None
 ready = False
 
 
@@ -37,13 +40,28 @@ class SafeFailure(Exception):
     status: int
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def _load_model() -> Any:
     import sherpa_onnx
 
+    manifest = json.loads(Path(__file__).with_name("model-manifest.json").read_text(encoding="utf-8"))
+    if manifest.get("revision") != "a6039be7cee829a9044a69ac0ebaf1c191217c97":
+        raise RuntimeError("ASR model revision is not pinned")
     required = ("encoder.int8.onnx", "decoder.onnx", "joiner.onnx", "tokens.txt")
     for filename in required:
-        if not (MODEL_DIR / filename).is_file():
+        path = MODEL_DIR / filename
+        if not path.is_file():
             raise RuntimeError("ASR model files are incomplete")
+        expected_hash = manifest["files"].get(filename)
+        if not expected_hash or _sha256_file(path) != expected_hash:
+            raise RuntimeError("ASR model integrity check failed")
     return sherpa_onnx.OfflineRecognizer.from_transducer(
         tokens=str(MODEL_DIR / "tokens.txt"),
         encoder=str(MODEL_DIR / "encoder.int8.onnx"),
@@ -127,6 +145,7 @@ def _transcribe(payload: bytes, deadline: float) -> str:
 
 async def _worker() -> None:
     while True:
+        assert jobs is not None
         payload, request_id, result, deadline = await jobs.get()
         try:
             if result.cancelled():
@@ -144,8 +163,8 @@ async def _worker() -> None:
             jobs.task_done()
 
 
-@app.on_event("startup")
-async def startup() -> None:
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
     global recognizer, jobs, ready
     if not TOKEN or len(TOKEN) < 32:
         raise RuntimeError("ASR_SERVICE_TOKEN must contain at least 32 characters")
@@ -154,7 +173,18 @@ async def startup() -> None:
     jobs = asyncio.Queue(maxsize=2)
     recognizer = await asyncio.to_thread(_load_model)
     ready = True
-    asyncio.create_task(_worker(), name="asr-single-worker")
+    worker = asyncio.create_task(_worker(), name="asr-single-worker")
+    try:
+        yield
+    finally:
+        ready = False
+        worker.cancel()
+        await asyncio.gather(worker, return_exceptions=True)
+        recognizer = None
+        jobs = None
+
+
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
 
 
 @app.get("/health")
@@ -170,7 +200,7 @@ async def readiness() -> dict[str, bool]:
 
 
 @app.post("/transcribe")
-async def transcribe(request: Request, audio: UploadFile, x_asr_token: str = Header(default=""), x_request_id: str = Header(default="")) -> JSONResponse:
+async def transcribe(request: Request, x_asr_token: str = Header(default=""), x_request_id: str = Header(default="")) -> JSONResponse:
     if not hmac.compare_digest(x_asr_token, TOKEN):
         raise HTTPException(status_code=401, detail="unauthorized")
     if len(x_request_id) > 80 or not x_request_id:
@@ -178,12 +208,21 @@ async def transcribe(request: Request, audio: UploadFile, x_asr_token: str = Hea
     declared = request.headers.get("content-length")
     if declared and (not declared.isdigit() or int(declared) > MAX_UPLOAD + 64 * 1024):
         raise HTTPException(status_code=413, detail="too_large")
+    try:
+        form = await request.form(max_files=1, max_fields=0, max_part_size=MAX_UPLOAD)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="invalid_audio") from exc
+    audio = form.get("audio")
+    if not isinstance(audio, UploadFile):
+        raise HTTPException(status_code=400, detail="invalid_audio")
     payload = await audio.read(MAX_UPLOAD + 1)
     await audio.close()
     if not payload or len(payload) > MAX_UPLOAD:
         raise HTTPException(status_code=413 if payload else 400, detail="invalid_audio")
     future: asyncio.Future[dict[str, str]] = asyncio.get_running_loop().create_future()
     try:
+        if jobs is None:
+            raise HTTPException(status_code=503, detail="ASR_NOT_READY")
         jobs.put_nowait((payload, x_request_id, future, time.monotonic() + DEADLINE_SECONDS))
     except asyncio.QueueFull:
         raise HTTPException(status_code=503, detail="ASR_BUSY")

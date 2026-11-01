@@ -17,24 +17,37 @@ def main() -> int:
     if not model_dir.is_dir() or not sample.is_file():
         print("ASR model or WAV sample is unavailable", file=sys.stderr)
         return 2
-    manifest_path = model_dir / "manifest.json"
+    manifest_path = Path(__file__).resolve().parents[1] / "asr" / "model-manifest.json"
     if not manifest_path.is_file():
         print("Model manifest is unavailable", file=sys.stderr)
         return 2
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    expected = {item["file"]: item["sha256"] for item in manifest["files"]}
+    if manifest.get("revision") != "a6039be7cee829a9044a69ac0ebaf1c191217c97":
+        print("ASR model revision is not pinned", file=sys.stderr)
+        return 2
+
+    def sha256(path: Path) -> str:
+        digest = hashlib.sha256()
+        with path.open("rb") as stream:
+            for block in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(block)
+        return digest.hexdigest()
+
+    expected = manifest["files"]
     for name in ("encoder.int8.onnx", "decoder.onnx", "joiner.onnx", "tokens.txt"):
         path = model_dir / name
-        if name not in expected or hashlib.sha256(path.read_bytes()).hexdigest() != expected[name]:
+        if not path.is_file() or name not in expected or sha256(path) != expected[name]:
             print(f"ASR model integrity check failed: {name}", file=sys.stderr)
             return 2
     try:
         sample_relative = sample.relative_to(model_dir).as_posix()
-        sample_expected = expected[sample_relative]
+        sample_expected = manifest["smokeWav"]["sha256"]
+        if sample_relative != manifest["smokeWav"]["file"]:
+            raise KeyError(sample_relative)
     except (ValueError, KeyError):
         print("Smoke WAV must be listed in the model manifest", file=sys.stderr)
         return 2
-    sample_hash = hashlib.sha256(sample.read_bytes()).hexdigest()
+    sample_hash = sha256(sample)
     if sample_hash != sample_expected:
         print("ASR sample integrity check failed", file=sys.stderr)
         return 2

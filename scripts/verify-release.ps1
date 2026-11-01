@@ -20,6 +20,8 @@ function Invoke-CheckedNpm([string]$ScriptName) {
 }
 
 try {
+  & (Join-Path $PSScriptRoot 'verify-asr.ps1')
+  if ($LASTEXITCODE -ne 0) { throw "ASR checks failed with exit code $LASTEXITCODE" }
   Invoke-CheckedNpm 'db:migrate'
   Invoke-CheckedNpm 'lint'
   Invoke-CheckedNpm 'typecheck'
