@@ -121,6 +121,42 @@
   font-size: .8rem;
 }
 
+.admin-dashboard .admin-asr-select {
+  display: grid;
+  gap: 6px;
+  font-size: .82rem;
+}
+
+.admin-dashboard .admin-asr-select select,
+.admin-asr-journal-controls select {
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.admin-asr-unavailable { color: #9d2834; }
+.admin-asr-errors-link { align-self: center; font-size: .8rem; }
+
+.admin-asr-journal-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin: 22px 0 14px;
+}
+
+.admin-asr-journal-controls label { display: grid; gap: 5px; min-width: 150px; font-size: .8rem; }
+.admin-asr-journal-controls .button { min-height: 38px; padding: 0 13px; font-size: .8rem; }
+.admin-asr-journal-controls .admin-card-note { margin: 0 0 8px; }
+.admin-asr-error-table { max-height: 62vh; }
+.admin-asr-error-table code { font-size: .77rem; }
+.admin-asr-pagination { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 16px; }
+.admin-asr-pagination .button { min-height: 38px; padding: 0 13px; font-size: .8rem; }
+
 .admin-dashboard .admin-switch {
   align-items: center;
   gap: 9px;
@@ -193,6 +229,10 @@
   .admin-side {
     grid-template-columns: 1fr;
   }
+
+  .admin-asr-journal-controls { align-items: stretch; }
+  .admin-asr-journal-controls label { flex: 1 1 100%; }
+  .admin-asr-pagination { gap: 8px; font-size: .8rem; }
 
   .admin-dashboard .admin-fields {
     grid-template-columns: repeat(3, minmax(0, 1fr));

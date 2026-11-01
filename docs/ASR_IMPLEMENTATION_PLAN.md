@@ -219,7 +219,7 @@ Rollback: переключить режим на browser, при необход�
 | 3. Серверные маршруты | DONE | Added public config, authenticated consent-bound upload, browser event intake, dedicated admin settings and journal APIs. Loopback URL enforced; no audio before valid signed cookie + live consent session; cross-origin mutations rejected; service secrets never returned. Route security tests, lint, typecheck, 18 tests passed. |
 | 4. Клиент и режимы | DONE | Chat now loads mode, records up to 60s with silence/no-speech stop, manual stop, sample-rate/container upload, preserves user draft, and never auto-sends. Browser mode retains direct SpeechRecognition. Typecheck and client capability tests passed. |
 | 5. Fallback | DONE | Sherpa errors attempt `SpeechRecognition.start(audioTrack)` only for desktop Chromium versions with documented support; fallback decodes same Blob through Web Audio, never calls new getUserMedia. Unsupported browsers keep text entry and explicitly say no repeat dictation. Capability, no-mobile/no-legacy, and draft de-duplication tests added; end-to-end browser validation remains in stage 8. |
-| 6. Админка | NOT_STARTED | |
+| 6. Админка | DONE | Compact ASR card added to current dashboard, exposes active mode and readiness, saves only `asr_engine`; separate protected journal page provides filters, pagination, full CSV export of up to 1000 events, and confirmed log-only deletion. Unauthorized and cross-origin/confirmation behavior tested. UI viewport checks remain in stage 8. |
 | 7. Deployment и документация | NOT_STARTED | |
 | 8. Приёмка и release | NOT_STARTED | |
 

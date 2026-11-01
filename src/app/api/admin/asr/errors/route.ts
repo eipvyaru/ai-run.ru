@@ -15,8 +15,9 @@ export async function GET(request: NextRequest) {
   const { format, ...options } = parsed.data;
   const result = listAsrErrors(options);
   if (format === "csv") {
+    const rows = Array.from({ length: Math.ceil(result.total / 100) }, (_, index) => listAsrErrors({ ...options, page: index + 1, pageSize: 100 }).rows).flat();
     const header = "createdAt,requestId,engine,stage,code,durationMs,httpStatus,eventBytes";
-    const lines = result.rows.map((row) => [row.createdAt, row.requestId, row.engine, row.stage, row.code, row.durationMs, row.httpStatus ?? "", row.eventBytes].join(","));
+    const lines = rows.map((row) => [row.createdAt, row.requestId, row.engine, row.stage, row.code, row.durationMs, row.httpStatus ?? "", row.eventBytes].join(","));
     return new NextResponse([header, ...lines].join("\r\n"), { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": "attachment; filename=ai-run-asr-errors.csv", "Cache-Control": "no-store" } });
   }
   return NextResponse.json(result, { headers: { "Cache-Control": "no-store" } });

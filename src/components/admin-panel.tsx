@@ -6,6 +6,7 @@ import Link from "next/link";
 
 type ScheduleWindow = { weekday: number; enabled: number; start_time: string; end_time: string };
 type AdminData = { settings: Record<string, string>; windows: ScheduleWindow[] };
+type AsrEngine = "browser" | "sherpa";
 
 const dayNames = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
 
@@ -17,6 +18,9 @@ export function AdminPanel() {
   const [windows, setWindows] = useState<ScheduleWindow[]>([]);
   const [settings, setSettings] = useState<Record<string, string>>({});
   const [debug, setDebug] = useState(false);
+  const [asrEngine, setAsrEngine] = useState<AsrEngine>("sherpa");
+  const [asrReady, setAsrReady] = useState(false);
+  const [asrSaved, setAsrSaved] = useState(false);
 
   async function load() {
     const response = await fetch("/api/admin");
@@ -33,6 +37,14 @@ export function AdminPanel() {
     setWindows(data.windows);
     setSettings(data.settings);
     setDebug(data.settings.debug_enabled === "true");
+    try {
+      const asrResponse = await fetch("/api/admin/asr", { cache: "no-store" });
+      if (asrResponse.ok) {
+        const asr = await asrResponse.json() as { engine: AsrEngine; modelReady: boolean };
+        setAsrEngine(asr.engine);
+        setAsrReady(asr.modelReady);
+      }
+    } catch { setAsrReady(false); }
   }
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -69,6 +81,27 @@ export function AdminPanel() {
     if (!confirm("Удалить все записи отладочного лога? Это действие нельзя отменить.")) return;
     const response = await fetch("/api/admin/debug", { method: "DELETE" });
     if (!response.ok) setError("Не удалось очистить лог");
+  }
+
+  async function saveAsr() {
+    setError("");
+    setAsrSaved(false);
+    let response: Response;
+    try {
+      response = await fetch("/api/admin/asr", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ engine: asrEngine }),
+      });
+    } catch {
+      setError("Не удалось сохранить режим распознавания");
+      return;
+    }
+    if (!response.ok) { setError("Не удалось сохранить режим распознавания"); return; }
+    const data = await response.json() as { engine: AsrEngine; modelReady: boolean };
+    setAsrEngine(data.engine);
+    setAsrReady(data.modelReady);
+    setAsrSaved(true);
   }
 
   function updateWindow(weekday: number, changes: Partial<ScheduleWindow>) {
@@ -133,6 +166,25 @@ export function AdminPanel() {
               <button className="button" type="button" onClick={save}>Сохранить режим</button>
               <a className="button secondary" href="/api/admin/debug">Выгрузить лог</a>
               <button className="button danger" type="button" onClick={clearDebug}>Очистить лог</button>
+            </div>
+          </section>
+          <section className="admin-card admin-asr-card">
+            <p className="section-index">ГОЛОСОВОЙ ВВОД</p>
+            <h2>Распознавание речи</h2>
+            <label className="admin-asr-select">Активный вариант
+              <select value={asrEngine} onChange={(event) => { setAsrEngine(event.target.value as AsrEngine); setAsrSaved(false); }}>
+                <option value="sherpa">Локальная модель Sherpa</option>
+                <option value="browser">Распознавание браузером</option>
+              </select>
+            </label>
+            <p className={`admin-card-note${asrEngine === "sherpa" && !asrReady ? " admin-asr-unavailable" : ""}`}>
+              {asrEngine === "sherpa" && (asrReady ? "Модель доступна на сервере" : "Модель сейчас недоступна; посетителю будет предложен fallback или текстовый ввод")}
+              {asrEngine === "browser" && "Используется Web Speech API браузера"}
+            </p>
+            <div className="admin-actions">
+              <button className="button" type="button" onClick={saveAsr}>Сохранить режим</button>
+              {asrSaved && <span className="admin-card-note" role="status">Сохранено</span>}
+              <a className="admin-journal-link admin-asr-errors-link" href="/admin/asr-errors" target="_blank" rel="noopener noreferrer">Журнал ошибок ↗</a>
             </div>
           </section>
         </aside>
