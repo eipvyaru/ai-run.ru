@@ -215,7 +215,7 @@ Rollback: переключить режим на browser, при необход�
 |---|---|---|
 | 0. Инвентаризация | DONE | Python 3.13.12 доступен через uv; sherpa-onnx 1.13.8 wheel устанавливается; model manifest подтверждён, модель расположена по согласованному пути. На машине не обнаружен ffmpeg в PATH; отдельно проверяется локальный декодер и воспроизводимая поставка. |
 | 1. Python-сервис | DONE | `asr/service.py`, pinned runtime, bounded sequential queue, authenticated loopback API, ffmpeg decode and cleanup. Model manifest verified; real 11.29s WAV decoded through service, 161 chars, 1.09s end-to-end; unauthenticated request rejected. Four Python boundary tests passed. |
-| 2. Настройки и журнал | NOT_STARTED | |
+| 2. Настройки и журнал | DONE | Migration 002 adds default Sherpa settings and ASR-only error table; application code enforces allowlists, 1 KiB UTF-8 event cap, transactional 1000-row ring and paginated filtering. Added test: 1005 events retain exactly 1000, no content/PII fields. typecheck/lint and 13 tests passed. |
 | 3. Серверные маршруты | NOT_STARTED | |
 | 4. Клиент и режимы | NOT_STARTED | |
 | 5. Fallback | NOT_STARTED | |
