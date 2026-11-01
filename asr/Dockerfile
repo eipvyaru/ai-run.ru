@@ -2,14 +2,12 @@ FROM python:3.12.3-slim-bookworm
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y ffmpeg ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --system --gid 10001 asr \
+RUN groupadd --system --gid 10001 asr \
     && useradd --system --uid 10001 --gid asr --home-dir /app --no-create-home asr
 WORKDIR /app
 COPY asr/requirements.lock ./asr/requirements.lock
 RUN python -m pip install --no-cache-dir --requirement asr/requirements.lock
+RUN python -c "import subprocess, imageio_ffmpeg; subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), '-version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)"
 COPY asr/service.py asr/model-manifest.json ./asr/
 RUN mkdir -p /tmp/asr && chown -R asr:asr /app /tmp/asr
 USER asr

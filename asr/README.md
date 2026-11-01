@@ -8,7 +8,7 @@
 
 ## Runtime
 
-Требуется Python 3.12.3 и FFmpeg в PATH либо `ASR_FFMPEG_PATH`. Linux runtime установить из `requirements.lock` в отдельный venv. Пример запуска:
+Требуется Python 3.12.3. Локальный/systemd runtime использует FFmpeg в PATH, `ASR_FFMPEG_PATH` или bundled fallback `imageio-ffmpeg`; Docker image проверяет и использует bundled executable. Linux runtime установить из `requirements.lock` в отдельный venv. Пример запуска:
 
 ```sh
 python -m pip install --requirement asr/requirements.lock
