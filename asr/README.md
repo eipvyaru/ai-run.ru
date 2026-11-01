@@ -1,6 +1,6 @@
 # Внутренний сервис распознавания Sherpa
 
-Сервис загружает закреплённую модель один раз, слушает только `127.0.0.1:8794`, требует секрет `ASR_SERVICE_TOKEN` и принимает multipart-поле `audio`. Он не пишет транскрипты и аудио в логи. Временный входной файл удаляется при любом исходе. На VPS порт 8794 выбран по результатам read-only аудита: он был свободен, а 8793 занят другим сервисом. Повторно проверить перед deployment.
+Сервис загружает закреплённую модель один раз, слушает только `127.0.0.1:8796`, требует секрет `ASR_SERVICE_TOKEN` и принимает multipart-поле `audio`. Он не пишет транскрипты и аудио в логи. Временный входной файл удаляется при любом исходе. Порт 8796 выбран после проверки центрального реестра, локального состояния и read-only проверки VPS; перед deployment повторно проверить.
 
 ## Модель
 
@@ -16,7 +16,7 @@ ASR_MODEL_DIR=/var/lib/ai-run.ru/asr/models/gigaam-v3-punct \
 ASR_TEMP_DIR=/var/cache/ai-run.ru/asr \
 ASR_SERVICE_TOKEN='(32+ random characters)' \
 ASR_FFMPEG_PATH=/usr/bin/ffmpeg \
-python -m uvicorn asr.service:app --host 127.0.0.1 --port 8794 --workers 1
+python -m uvicorn asr.service:app --host 127.0.0.1 --port 8796 --workers 1
 ```
 
 Лимиты: максимум 8 MiB входа, 60 секунд mono PCM 16 kHz, один decode и очередь максимум два ожидающих запроса. Проверить `/health` и `/ready`. API не открывать в Nginx.

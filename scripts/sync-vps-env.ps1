@@ -23,7 +23,7 @@ $values = [ordered]@{
   DATABASE_PATH = '/var/lib/ai-run.ru/ai-run.ru.sqlite'
   SYSTEM_PROMPT_PATH = '/var/lib/ai-run.ru/system_prompt.md'
   TRUSTED_PROXY = 'true'
-  ASR_SERVICE_URL = 'http://127.0.0.1:8794'
+  ASR_SERVICE_URL = 'http://127.0.0.1:8796'
   ASR_REQUEST_TIMEOUT_MS = '50000'
 }
 foreach ($entry in $values.GetEnumerator()) {

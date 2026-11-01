@@ -17,7 +17,7 @@ const schema = z.object({
   YANDEX_CALDAV_URL: z.string().url().default("https://caldav.yandex.ru"), YANDEX_CALDAV_LOGIN: z.string().default("eipv@yandex.ru"), YANDEX_CALDAV_PASSWORD: z.string().default(""), YANDEX_CALENDAR_URL: z.string().default(""),
   SMTP_HOST: z.string().default("smtp.ht-systems.ru"), SMTP_PORT: z.coerce.number().int().default(465), SMTP_SECURE: z.string().default("true").transform(v=>v==="true"), SMTP_LOGIN: z.string().default("noreply@ai-run.ru"), SMTP_PASSWORD: z.string().default(""), SMTP_FROM: z.string().default("noreply@ai-run.ru"), SMTP_TO: z.string().default("igor@ai-run.ru"),
   TRUSTED_PROXY: z.string().default("false").transform(v=>v==="true"),
-  ASR_SERVICE_URL: z.string().url().default("http://127.0.0.1:8794"),
+  ASR_SERVICE_URL: z.string().url().default("http://127.0.0.1:8796"),
   ASR_SERVICE_TOKEN: z.string().default(""),
   ASR_REQUEST_TIMEOUT_MS: z.coerce.number().int().min(1000).max(50000).default(50000)
 });

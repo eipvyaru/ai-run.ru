@@ -72,7 +72,7 @@ class ServiceAuthorizationTests(unittest.IsolatedAsyncioTestCase):
             "root_path": "",
             "headers": [(b"content-length", b"14")],
             "client": ("127.0.0.1", 12345),
-            "server": ("127.0.0.1", 8794),
+            "server": ("127.0.0.1", 8796),
         }
         request = Request(scope, receive)
         with patch.object(service, "TOKEN", "x" * 48):

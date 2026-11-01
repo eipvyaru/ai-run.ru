@@ -9,5 +9,15 @@
   "githubRepository": "eipvyaru/ai-run.ru",
   "vpsHost": "170.168.112.47",
   "vpsSshPort": 22,
-  "nodeVersion": "v24.21.0"
+  "nodeVersion": "v24.21.0",
+  "internalServices": [
+    {
+      "serviceName": "ai-run-ru-asr",
+      "runtime": "Python 3.12.3",
+      "protocol": "http",
+      "bindAddress": "127.0.0.1",
+      "port": 8796,
+      "public": false
+    }
+  ]
 }

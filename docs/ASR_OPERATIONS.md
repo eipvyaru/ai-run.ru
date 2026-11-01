@@ -4,7 +4,7 @@
 
 - Модель: `sherpa-onnx-nemo-transducer-punct-giga-am-v3-russian-2025-12-16`, revision `a6039be7cee829a9044a69ac0ebaf1c191217c97`.
 - Python: 3.12.3; версии библиотек закреплены в `asr/requirements.lock`.
-- Python API: только `127.0.0.1:8794`; наружу его публиковать нельзя.
+- Python API: только `127.0.0.1:8796`; наружу его публиковать нельзя.
 - Веб-приложение обращается к Python через Node Route Handler; Nginx проксирует только `/api/asr/transcribe` на веб-приложение и не имеет маршрута к Python.
 - Модель, секреты, виртуальная среда, записи и production-данные не входят в Git.
 
@@ -19,14 +19,14 @@
 
 ## Установка при первом deployment
 
-1. До любых изменений повторно проверить свободную RAM, диск, порт 8794, системные версии Python и архитектуру. Установить `ffmpeg` из системного Ubuntu-репозитория; проверить `/usr/bin/ffmpeg -version`.
+1. До любых изменений повторно проверить свободную RAM, диск, порт 8796, системные версии Python и архитектуру. Порт 8794 не использовать: он зарезервирован в центральном реестре под Playwright для privacy-service. Установить `ffmpeg` из системного Ubuntu-репозитория; проверить `/usr/bin/ffmpeg -version`.
 2. Убедиться, что Python 3.12.3 доступен как `/usr/bin/python3.12`; создать `/var/lib/ai-run.ru/asr/venv` и установить зависимости из `asr/requirements.lock`. Установку Linux wheel проверить до включения службы: локальная Windows-проверка не доказывает наличие Linux wheel.
 3. Создать непривилегированные пользователя/группу `ai-run-asr`, каталог `/var/cache/ai-run.ru/asr` с владельцем `ai-run-asr` и режимом `0700`.
 4. Отдельно передать четыре файла модели `encoder.int8.onnx`, `decoder.onnx`, `joiner.onnx`, `tokens.txt` в `/var/lib/ai-run.ru/asr/models/gigaam-v3-punct`. Пример WAV для smoke-теста положить рядом в `test_wavs/example.wav` только если он взят из утверждённого локального источника. Выставить каталоги `0750`, файлы модели `0640`, владельца root и группу `ai-run-asr`.
 5. Сверить файлы с `asr/model-manifest.json`. Перед первым запуском выполнить smoke по инструкции ниже; readiness отклонит другую версию или изменённый вес.
 6. Установить `/var/www/ai-run.ru/.env` и `.env.asr` с ограниченными правами. Проверить совпадение токена без вывода его значения.
 7. Установить `deploy/systemd/ai-run-ru-asr.service` в `/etc/systemd/system/`, проверить пути и разрешения, выполнить `systemctl daemon-reload`, включить и запустить только `ai-run-ru-asr.service`.
-8. Проверить `systemctl status ai-run-ru-asr`, `curl --fail http://127.0.0.1:8794/health` и `curl --fail http://127.0.0.1:8794/ready`. Извне VPS этот порт должен быть недоступен.
+8. Проверить `systemctl status ai-run-ru-asr`, `curl --fail http://127.0.0.1:8796/health` и `curl --fail http://127.0.0.1:8796/ready`. Извне VPS этот порт должен быть недоступен.
 9. Установить конфигурацию сайта из `deploy/nginx/ai-run.ru.conf`, проверить `nginx -t` и применить reload только после подтверждения, что diff меняет только `ai-run.ru`. Путь `/api/asr/transcribe` допускает 9 MiB multipart; Python endpoint не проксируется.
 10. Применять проверенный web release и миграцию по `docs/DEPLOYMENT_ROOT.md` / `docs/DEPLOYMENT_UPDATE.md`. Проверить веб readiness, вход в админку, режимы и журнал. Выбор `sherpa` включать после проверки readiness.
 
