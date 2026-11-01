@@ -108,20 +108,75 @@ textarea:focus-visible {
   font-size: .68rem;
   line-height: 1.35;
 }
-.chat-form .asr-stop-button {
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  margin-top: 9px;
+  padding: 5px 8px;
+  border: 1px solid #e4e0f2;
+  border-radius: 9px;
+  background: #faf9ff;
+  color: #343944;
+}
+.recording-indicator-label {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
-  margin-top: 8px;
-  padding: 0 12px;
-  border: 1px solid #d6d9e0;
+  gap: 7px;
+  flex: 0 0 auto;
+  font-size: .72rem;
+  font-weight: 700;
+}
+.recording-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d44759;
+  box-shadow: 0 0 0 3px rgb(212 71 89 / 12%);
+  animation: recording-dot 1.1s ease-in-out infinite;
+}
+.recording-meter {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 36px;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8e6ef;
+}
+.recording-meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #5684ef, #8657e8 70%, #d44759);
+  transition: width 100ms linear;
+}
+.recording-countdown {
+  flex: 0 0 auto;
+  min-width: 38px;
+  color: #555d6a;
+  font-variant-numeric: tabular-nums;
+  font-size: .72rem;
+  text-align: right;
+  white-space: nowrap;
+}
+.chat-form .recording-stop {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid #d9d3ed;
   border-radius: 7px;
   background: #fff;
-  color: #252a33;
+  color: #4c3b91;
   box-shadow: none;
-  font-size: .76rem;
+  font-size: .7rem;
+  font-weight: 600;
   cursor: pointer;
 }
+.chat-form .recording-stop:hover { border-color: #8b72dd; background: #f4f1ff; filter: none; }
+@keyframes recording-dot { 50% { opacity: .45; } }
 @keyframes voice-pulse {
   50% { box-shadow: 0 0 0 5px rgb(216 82 97 / 14%); }
 }
@@ -229,6 +284,9 @@ footer a:focus-visible { color: #fff; }
   .cap-grid { grid-template-columns: 1fr; }
   .chat-card { box-shadow: 0 16px 38px rgb(43 51 69 / 13%); }
   .consent { padding-top: 14px; }
+  .recording-indicator { gap: 7px; padding-inline: 7px; }
+  .recording-indicator-label { gap: 5px; font-size: .68rem; }
+  .chat-form .recording-stop { padding-inline: 7px; font-size: .66rem; }
   footer { padding-left: 20px; padding-right: 20px; }
 }
 
@@ -238,6 +296,7 @@ footer a:focus-visible { color: #fff; }
 
 @media (prefers-reduced-motion: reduce) {
   .voice-button.listening { animation: none; }
+  .recording-indicator-dot { animation: none; }
   .header nav a,
   .cap-grid article { transition: none; }
 }

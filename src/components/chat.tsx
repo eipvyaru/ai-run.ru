@@ -54,6 +54,7 @@ export function Chat() {
   const [voiceError, setVoiceError] = useState("");
   const [voiceStatus, setVoiceStatus] = useState("");
   const [recordingSeconds, setRecordingSeconds] = useState(0);
+  const [recordingLevel, setRecordingLevel] = useState(0);
   const [asrConfig, setAsrConfig] = useState<AsrConfig>({ engine: "sherpa", modelReady: false, maxDurationSeconds: 60, silenceMs: 2000, noSpeechMs: 10000 });
   const endRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -120,6 +121,7 @@ export function Chat() {
     setAsrBusy(false);
     setListening(false);
     setRecordingSeconds(0);
+    setRecordingLevel(0);
     setVoiceStatus(status);
     if (error) setVoiceError(error);
   }
@@ -190,10 +192,11 @@ export function Chat() {
         noSpeechMs: asrConfig.noSpeechMs,
         maxDurationMs: asrConfig.maxDurationSeconds * 1000,
         onTick: setRecordingSeconds,
+        onLevel: setRecordingLevel,
       });
       recordingRef.current = handle;
       setListening(true);
-      setVoiceStatus("Идёт запись. Остановится через 2 секунды тишины или не позднее 60 секунд.");
+      setVoiceStatus("Идёт запись.");
       const recording = await handle.finished;
       recordingRef.current = null;
       setListening(false);
@@ -288,6 +291,8 @@ export function Chat() {
     finally { setBusy(false); }
   }
 
+  const recordingRemaining = Math.max(0, asrConfig.maxDurationSeconds - recordingSeconds);
+
   return <section className="chat-card" aria-label="AI-секретарь">
     <div className="chat-head"><div className="chat-person"><span className="chat-avatar">AI</span><div><strong>AI-секретарь</strong><small>Поможет назначить разговор</small></div></div><span className="online" aria-label="Онлайн" /></div>
     <div className="chat-messages" aria-live="polite">{messages.map((message, index) => <div className={`bubble ${message.role}`} key={index}>{message.text}</div>)}{busy && <div className="bubble assistant typing">Печатает…</div>}<div ref={endRef}/></div>
@@ -299,9 +304,16 @@ export function Chat() {
         </button>
         <button className="send-button" type="submit" disabled={!consented || busy || asrBusy || !input.trim()} aria-label="Отправить">↑</button>
       </div>
-      {listening && asrConfig.engine === "sherpa" && <button className="asr-stop-button" type="button" onClick={stopVoiceInput}>Остановить · {recordingSeconds} сек.</button>}
-      {consented && <p className="asr-privacy-note">{asrConfig.engine === "sherpa" ? "Основное распознавание выполняется локальной моделью. При её сбое браузер может обработать уже записанное аудио. Новая запись автоматически не запускается." : "Выбрано браузерное распознавание. Браузер может передавать аудио своему сервису распознавания."}</p>}
-      {(asrBusy || voiceError || voiceStatus) && <p className={`voice-status${voiceError ? " error" : ""}`} aria-live="polite">{voiceError && <span>{voiceError} </span>}{voiceStatus && voiceStatus !== voiceError && <span>{voiceStatus}</span>}</p>}
+      {listening && asrConfig.engine === "sherpa" && <div className="recording-indicator" role="group" aria-label="Запись звука">
+        <span className="recording-indicator-label"><span className="recording-indicator-dot" aria-hidden="true"/>Запись</span>
+        <div className="recording-meter" role="meter" aria-label="Уровень звука" aria-valuemin={0} aria-valuemax={100} aria-valuenow={recordingLevel} title="Текущий уровень звука">
+          <span className="recording-meter-fill" style={{ width: `${recordingLevel}%` }}/>
+        </div>
+        <span className="recording-countdown" role="timer" aria-label={`До предельного времени записи ${recordingRemaining} секунд`} title={`Запись завершится раньше после ${Math.ceil(asrConfig.silenceMs / 1000)} секунд тишины`}>{recordingRemaining} с</span>
+        <button className="recording-stop" type="button" onClick={stopVoiceInput}>Остановить</button>
+      </div>}
+      {consented && !listening && <p className="asr-privacy-note">{asrConfig.engine === "sherpa" ? "Основное распознавание выполняется локальной моделью. При её сбое браузер может обработать уже записанное аудио. Новая запись автоматически не запускается." : "Выбрано браузерное распознавание. Браузер может передавать аудио своему сервису распознавания."}</p>}
+      {!listening && (asrBusy || voiceError || voiceStatus) && <p className={`voice-status${voiceError ? " error" : ""}`} aria-live="polite">{voiceError && <span>{voiceError} </span>}{voiceStatus && voiceStatus !== voiceError && <span>{voiceStatus}</span>}</p>}
     </form>
     {!consented && <label className="consent"><input type="checkbox" checked={false} disabled={busy} onChange={(event) => acceptConsent(event.target.checked)}/><span>Я даю согласие на обработку моих персональных данных в соответствии с <Link href="/legal/privacy" target="_blank" rel="noreferrer">Политикой обработки персональных данных</Link>. Я обязуюсь здесь не указывать никакие свои персональные данные кроме имени и телефона.</span></label>}
   </section>;

@@ -12,6 +12,7 @@ type RecordingOptions = {
   noSpeechMs: number;
   maxDurationMs: number;
   onTick?: (seconds: number) => void;
+  onLevel?: (level: number) => void;
 };
 
 const RECORDING_TYPES = ["audio/webm;codecs=opus", "audio/ogg;codecs=opus", "audio/mp4"];
@@ -87,6 +88,7 @@ export async function startSherpaRecording(options: RecordingOptions): Promise<R
       let sum = 0;
       for (const value of frame) sum += value * value;
       const rms = Math.sqrt(sum / frame.length);
+      options.onLevel?.(Math.min(100, Math.round(rms * 500)));
       const active = rms > Math.max(0.012, noiseFloor * 2.5 + 0.004);
       if (active) {
         speechMs += frameMs;
