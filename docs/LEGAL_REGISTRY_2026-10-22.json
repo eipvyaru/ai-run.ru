@@ -7,49 +7,49 @@
     {
       "id": "operator",
       "version": "1.2.1",
-      "source_sha256": "7344f90e0d49a4130f7d83e49d2d5d51b008acfc2b7020842c444f843a8f4f0b",
+      "source_sha256": "ce1efe93a1ab85b6c20fd30140fd66cae8537c0f1310e2506cc1f72b926d959c",
       "canonical_url": "https://ai-run.ru/legal/operator",
       "status": "APPROVED"
     },
     {
       "id": "offer",
       "version": "1.2.1",
-      "source_sha256": "da8413cf03780c60f80d3de2761c62b932f297e66223c792bd006e8d1e8fbd3a",
+      "source_sha256": "47fa1412a923371be93d05f2b15405f8291c9f8a75f636f3d4580ee3f3673b87",
       "canonical_url": "https://ai-run.ru/legal/offer",
       "status": "APPROVED"
     },
     {
       "id": "privacy",
       "version": "1.2.1",
-      "source_sha256": "fca9b540c19ba26ae67d0608d3697723ee4b5b246a774a05aa6f3c7c0bd755f8",
+      "source_sha256": "23e17a8b28f9d22f78f49fd3579c35a986df0caff84b240c38b94e9f8bc193c5",
       "canonical_url": "https://ai-run.ru/legal/privacy",
       "status": "APPROVED"
     },
     {
       "id": "personal-data-consent",
       "version": "1.2.1",
-      "source_sha256": "be08da06a4756f2d4c0e32dd6b979683e0fe77ec3d17873c81e977aff9d4f640",
+      "source_sha256": "bf36b95e1ab1a1eeabc79b585835aa4fcfe2066e99dfccb694b5c9b649a7a491",
       "canonical_url": "https://ai-run.ru/legal/personal-data-consent",
       "status": "APPROVED"
     },
     {
       "id": "cookies",
       "version": "1.2.1",
-      "source_sha256": "267dc4b9232504fa02fbde42fdb7ee96b346c719c22ef2c5a6176b612d9f2672",
+      "source_sha256": "f37b95747cb6e82fd02d54860264fe0b72855a431994e541a3f10a804a55df97",
       "canonical_url": "https://ai-run.ru/cookies",
       "status": "APPROVED"
     },
     {
       "id": "third-party-data",
       "version": "1.2.1",
-      "source_sha256": "fcd8e8d60c4b526d8f88467967778a47657e60de0572708bb827b40170b082d5",
+      "source_sha256": "a9e739775f913d2e3e78c53b5234cf4e1343190c89d979a8c4413d3f76999a11",
       "canonical_url": "https://ai-run.ru/legal/third-party-data",
       "status": "APPROVED"
     },
     {
       "id": "data-security",
       "version": "1.2.1",
-      "source_sha256": "ac106822d387bd19e8397cd9022c6a0788689ca22b037872ecac396136d52fed",
+      "source_sha256": "e09164f6934a9c33289f78b1ebebdc81275b476f84540ae2fe247430e52eface",
       "canonical_url": "https://ai-run.ru/legal/data-security",
       "status": "APPROVED"
     }
